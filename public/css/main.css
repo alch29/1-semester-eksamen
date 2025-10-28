@@ -1,8 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 :root {
   color-scheme: light dark;
+
+  --primary-bg: #FDFDFD;
+  --secondary-bg: #EBEBEB;
+  --tetriary-bg: #BFBFBF;
+  --primary-text: #202020;
+  --primary-color: #7DB9F6;
+  --secondary-color: #BEDEFE;
+  --tetriary-color: #FF1493;
+
+  --paragraph: "Roboto", sans-serif;
+  --paragraph-weight: 400;
+  --paragraph-size: 12px;
+  --heading: "Roboto", sans-serif;
+  --heading-weight: 500;
+  --heading-size: 20px;
+  --subheading: "Roboto", sans-serif;
+  --subheading-weight: 500;
+  --subheading-size: 14px;
+  
+  --primary-border-r: 4px;
+  --primary-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+
+  --button-width: 309px;
+  --button-height: 32px;
+  --button-padding: 8px 12px;
 }
 
 body {
   font-family: sans-serif;
   margin: 2rem;
+}
+
+.headline{
+  font-family: var(--heading);
+  font-weight: var(--heading-weight);
+  font-size: var(--heading-size);
+}
+
+.subHeadline{
+  font-family: var(--subheading);
+  font-weight: var(--subheading-weight);
+  font-size: var(--subheading-size);
+}
+
+.paragraph{
+  font-family: var(--paragraph);
+  font-weight: var(--paragraph-weight);
+  font-size: var(--paragraph-size);
+}
+
+.box{
+  border-radius: var(--primary-border-r);
+  box-shadow: var(--primary-box-shadow);
+}
+
+.button1{
+  border: 0;
+  width: var(--button-width);
+  height: var(--button-height);
+  padding: var(--button-padding);
+  background-color: var(--secondary-color);
+  border-radius: var(--primary-border-r);
+  box-shadow: var(--primary-box-shadow);
+  color: var(--primary-text);
+  font-family: var(--subheading);
+  font-weight: var(--subheading-weight);
+  font-size: var(--subheading-size);
+}
+
+.button2{
+  border: 0;
+  width: var(--button-width);
+  height: var(--button-height);
+  padding: var(--button-padding);
+  background-color: var(--primary-color);
+  border-radius: var(--primary-border-r);
+  box-shadow: var(--primary-box-shadow);
+  color: var(--primary-text);
+  font-family: var(--subheading);
+  font-weight: var(--subheading-weight);
+  font-size: var(--subheading-size);
+}
+
+.deleteStaff{
+  color: var(--tetriary-color);
+  text-decoration: underline;
+  font-family: var(--subheading);
+  font-weight: var(--paragraph-weight);
+  font-size: var(--subheading-size);
 }

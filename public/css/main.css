@@ -35,18 +35,21 @@ body {
 }
 
 .headline{
+  color: var(--primary-text);
   font-family: var(--heading);
   font-weight: var(--heading-weight);
   font-size: var(--heading-size);
 }
 
 .subHeadline{
+  color: var(--primary-text);
   font-family: var(--subheading);
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
 }
 
 .paragraph{
+  color: var(--primary-text);
   font-family: var(--paragraph);
   font-weight: var(--paragraph-weight);
   font-size: var(--paragraph-size);
@@ -91,4 +94,10 @@ body {
   font-family: var(--subheading);
   font-weight: var(--paragraph-weight);
   font-size: var(--subheading-size);
+}
+
+.stationInfoContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

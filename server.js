@@ -1,6 +1,6 @@
 const app = require("./app");
 const { engine } = require('express-handlebars');
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 
 app.engine('hbs', engine({ 

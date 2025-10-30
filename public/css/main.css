@@ -61,6 +61,10 @@ body {
 }
 
 .button1{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   border: 0;
   width: var(--button-width);
   height: var(--button-height);
@@ -94,6 +98,21 @@ body {
   font-family: var(--subheading);
   font-weight: var(--paragraph-weight);
   font-size: var(--subheading-size);
+}
+
+.headerText {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonContent{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .stationInfoContainer{

@@ -1,4 +1,4 @@
-<p class="headline">&lt;&lt; stationName X</p>
+{{!-- <p class="headline">&lt;&lt; stationName X</p>
 <div>
   <div>
     <p class="subHeadline">Address</p>
@@ -14,4 +14,30 @@
 <div>
   <p class="paragraph">stationStaff</p>
   <button class="button1">Manage staff</button>
-</div>
+</div> --}}
+<h1>{{title}}</h1>
+
+{{#if stations.length}}
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each stations}}
+        <tr>
+          <td>{{this.name}}</td>
+          <td>{{this.email}}</td>
+          <td>{{this.address}}</td>
+          <td>{{this.phone}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p>No stations found.</p>
+{{/if}}

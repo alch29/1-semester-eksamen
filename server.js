@@ -2,6 +2,8 @@ const app = require("./app");
 const { engine } = require('express-handlebars');
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
+// const db = require('./models');
+// const Station = db.station;
 
 app.engine('hbs', engine({ 
   extname: 'hbs',
@@ -60,6 +62,19 @@ app.get('/admin/stations', (req, res) => {
       title: 'Stations',
   });
 });
+
+// app.get('/admin/stations/info', async (req, res) => {
+//   try {
+//     const stations = await Station.findAll();
+//     res.render('admin/stations/admin-station-info', {
+//       title: 'Stations',
+//       stations
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Database error');
+//   }
+// });
 
 app.get('/admin/stations/info', (req, res) => {
   res.render('admin/stations/admin-station-info', {

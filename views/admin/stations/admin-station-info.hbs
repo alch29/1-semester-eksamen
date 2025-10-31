@@ -1,43 +1,29 @@
-{{!-- <p class="headline">&lt;&lt; stationName X</p>
-<div>
-  <div>
-    <p class="subHeadline">Address</p>
-    <p>{{stationAddress}}</p>
-  </div>
-  <div>
-    <p class="subHeadline">Contact information</p>
-    <p class="paragraph">Phone: +45 {{stationPhone}}</p>
-    <p class="paragraph">Mail: {{stationMail}}</p>
-  </div>
-</div>
-<p class="headline">Staff member</p>
-<div>
-  <p class="paragraph">stationStaff</p>
-  <button class="button1">Manage staff</button>
-</div> --}}
-<h1>{{title}}</h1>
+<div><a href="/admin/stations">&lt;&lt;</a>{{station.name}}</div>
 
-{{#if stations.length}}
-  <table border="1" cellpadding="5">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th>Phone</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each stations}}
-        <tr>
-          <td>{{this.name}}</td>
-          <td>{{this.email}}</td>
-          <td>{{this.address}}</td>
-          <td>{{this.phone}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
+<div>
+  <div>Address</div>
+  <div>{{station.address}}</div>
+</div>
+
+<div>
+  <div>Contact information</div>
+  <div>Phone: +45 {{staion.phone}}</div>
+  <div>Mail: {{station.email}}</div>
+</div>
+
+<div>
+  <input type="checkbox" value="cleanForecourt">
+  <label for="cleanForecourt">Clean forecourt</label>
+</div>
+
+<div>Staff member</div>
+{{#if station.user}}
+  <div>{{station.user.name}}</div>
 {{else}}
-  <p>No stations found.</p>
+  <div>No staff member assigned</div>
 {{/if}}
+
+<a href="/admin/stations/manage?stationId={{station.id}}&userId={{station.user.id}}" class="button1">
+  Manage staff
+</a>
+

@@ -27,7 +27,7 @@
 </section>
 
 {{! Table over stations to be managed }}
-<section>
+<section class="admin-staff-stations-table">
   <h1>{{tableTitle}}</h1>
   {{#if stations.length}}
     <table border="1" cellpadding="5">
@@ -62,7 +62,10 @@
 </section>
 
 <style>
-  .admin-add-staff-buttons { display: flex; flex-direction: column; align-items:
-  center; gap: 10px; } .button1 { margin: 10px 0; } .deleteStaff { color:
-  var(--tetriary-color); cursor: pointer; text-decoration: underline; }
+  .admin-add-staff-form { display: flex; flex-direction: column; gap: 15px;
+  margin: 20px 0; } .admin-staff-stations-table { display: flex; flex-direction:
+  column; align-items: center; margin: 20px 0; } .admin-add-staff-buttons {
+  display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .button1 { margin: 10px 0; } .deleteStaff { color: var(--tetriary-color);
+  cursor: pointer; text-decoration: underline; }
 </style>

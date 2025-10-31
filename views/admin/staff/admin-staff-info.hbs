@@ -1,0 +1,51 @@
+<nav class="admin-add-staff-nav">
+  <a href="/admin/staff">Back to Staff List</a>
+</nav>
+
+<section class="admin-add-staff-form">
+  <input
+    type="text"
+    id="staff-firstName"
+    name="staff-firstName"
+    placeholder="{{inputFirstName}}"
+    required
+  />
+  <input
+    type="text"
+    id="staff-lastName"
+    name="staff-lastName"
+    placeholder="{{inputLastName}}"
+    required
+  />
+  <input
+    type="text"
+    id="staff-email"
+    name="staff-email"
+    placeholder="{{inputEmail}}"
+    required
+  />
+</section>
+
+{{! Table over stations to be managed }}
+<section>
+  <h1>Stations</h1>
+  <table class="admin-staff-info-table">
+    <thead>
+      <tr>
+        <th>Station Street</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Stationsvej 156</td>
+        <td>Odense C, 5000</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="admin-add-staff-buttons">
+  <button>{{manageButton}}</button>
+  <button>{{saveButton}}</button>
+</section>

@@ -104,6 +104,11 @@ app.get("/admin/add-staff/stations", (req, res) => {
 app.get("/admin/staff-info", (req, res) => {
   res.render("admin/staff/admin-staff-info", {
     title: "Staff info",
+    inputFirstName: "First Name",
+    inputLastName: "Last Name",
+    inputEmail: "JohnDoe@Example.com",
+    manageButton: "Manage Stations",
+    saveButton: "Save Changes",
   });
 });
 

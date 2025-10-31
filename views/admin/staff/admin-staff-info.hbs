@@ -2,7 +2,7 @@
   <a href="/admin/staff">Back to Staff List</a>
 </nav>
 
-<section class="admin-add-staff-form">
+<div class="admin-add-staff-form">
   <input
     type="text"
     id="staff-firstName"
@@ -24,10 +24,10 @@
     placeholder="{{inputEmail}}"
     required
   />
-</section>
+</div>
 
 {{! Table over stations to be managed }}
-<section class="admin-staff-stations-table">
+<div class="admin-staff-stations-table">
   <h1>{{tableTitle}}</h1>
   {{#if stations.length}}
     <table border="1" cellpadding="5">
@@ -53,13 +53,13 @@
   {{else}}
     <p>No stations found.</p>
   {{/if}}
-</section>
+</div>
 
-<section class="admin-add-staff-buttons">
+<div class="admin-add-staff-buttons">
   <button class="button1">{{manageButton}}</button>
   <button class="button2">{{saveButton}}</button>
   <p class="deleteStaff">Delete Staff</p>
-</section>
+</div>
 
 <style>
   .admin-add-staff-form { display: flex; flex-direction: column; gap: 15px;

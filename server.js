@@ -110,15 +110,23 @@ app.get("/admin/add-staff/stations", (req, res) => {
   });
 });
 
-app.get("/admin/staff-info", (req, res) => {
-  res.render("admin/staff/admin-staff-info", {
-    title: "Staff info",
-    inputFirstName: "First Name",
-    inputLastName: "Last Name",
-    inputEmail: "JohnDoe@Example.com",
-    manageButton: "Manage Stations",
-    saveButton: "Save Changes",
-  });
+app.get("/admin/staff-info", async (req, res) => {
+  try {
+    const stations = await station.findAll();
+    res.render("admin/staff/admin-staff-info", {
+      title: "Staff info",
+      inputFirstName: "First Name",
+      inputLastName: "Last Name",
+      inputEmail: "JohnDoe@Example.com",
+      manageButton: "Manage Stations",
+      saveButton: "Save Changes",
+      tableTitle: "Stations",
+      stations: stations.map((st) => st.toJSON()),
+    });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).send("Database error");
+  }
 });
 
 app.listen(PORT, HOST, () => {

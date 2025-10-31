@@ -28,24 +28,41 @@
 
 {{! Table over stations to be managed }}
 <section>
-  <h1>Stations</h1>
-  <table class="admin-staff-info-table">
-    <thead>
-      <tr>
-        <th>Station Street</th>
-        <th>Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Stationsvej 156</td>
-        <td>Odense C, 5000</td>
-      </tr>
-    </tbody>
-  </table>
+  <h1>{{tableTitle}}</h1>
+  {{#if stations.length}}
+    <table border="1" cellpadding="5">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each stations}}
+          <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.phone}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p>No stations found.</p>
+  {{/if}}
 </section>
 
 <section class="admin-add-staff-buttons">
-  <button>{{manageButton}}</button>
-  <button>{{saveButton}}</button>
+  <button class="button1">{{manageButton}}</button>
+  <button class="button2">{{saveButton}}</button>
+  <p class="deleteStaff">Delete Staff</p>
 </section>
+
+<style>
+  .admin-add-staff-buttons { display: flex; flex-direction: column; align-items:
+  center; gap: 10px; } .button1 { margin: 10px 0; } .deleteStaff { color:
+  var(--tetriary-color); cursor: pointer; text-decoration: underline; }
+</style>

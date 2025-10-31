@@ -2,6 +2,8 @@ const app = require("./app");
 const { engine } = require("express-handlebars");
 const HOST = process.env.HOST || "0.0.0.0";
 const PORT = process.env.PORT || 3000;
+const db = require("./models");
+const { image, measurement, product, role, station, user } = db;
 
 app.engine(
   "hbs",
@@ -64,10 +66,17 @@ app.get("/admin/stations", (req, res) => {
   });
 });
 
-app.get("/admin/stations/info", (req, res) => {
-  res.render("admin/stations/admin-station-info", {
-    title: "Station info",
-  });
+app.get("/admin/stations/info", async (req, res) => {
+  try {
+    const stations = await station.findAll();
+    res.render("admin/stations/admin-station-info", {
+      title: "Station info",
+      stations: stations.map((st) => st.toJSON()),
+    });
+  } catch (err) {
+    console.error("Database error:", err);
+    res.status(500).send("Database error");
+  }
 });
 
 app.get("/admin/stations/manage", (req, res) => {

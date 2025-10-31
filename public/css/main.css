@@ -35,18 +35,21 @@ body {
 }
 
 .headline{
+  color: var(--primary-text);
   font-family: var(--heading);
   font-weight: var(--heading-weight);
   font-size: var(--heading-size);
 }
 
 .subHeadline{
+  color: var(--primary-text);
   font-family: var(--subheading);
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
 }
 
 .paragraph{
+  color: var(--primary-text);
   font-family: var(--paragraph);
   font-weight: var(--paragraph-weight);
   font-size: var(--paragraph-size);
@@ -58,6 +61,10 @@ body {
 }
 
 .button1{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   border: 0;
   width: var(--button-width);
   height: var(--button-height);
@@ -91,4 +98,25 @@ body {
   font-family: var(--subheading);
   font-weight: var(--paragraph-weight);
   font-size: var(--subheading-size);
+}
+
+.headerText {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonContent{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.stationInfoContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

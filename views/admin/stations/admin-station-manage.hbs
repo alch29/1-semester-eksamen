@@ -1,0 +1,14 @@
+<form>
+  <ul class="radio-list">
+    {{#each stations}}
+      <li>
+        <label>
+          <input type="radio" name="station" value="{{id}}">
+          {{name}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+  <button type="submit">Cancel</button>
+  <button type="submit">Confirm</button>
+</form>

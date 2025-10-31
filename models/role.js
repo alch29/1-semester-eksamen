@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   role.init({
     name: DataTypes.STRING,
-    is_admin: DataTypes.ENUM
+    is_admin: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'role',

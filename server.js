@@ -2,6 +2,9 @@ const app = require("./app");
 const { engine } = require('express-handlebars');
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
+const db = require('./models');
+const { image, measurement, product, role, station, user } = db;
+
 
 app.engine('hbs', engine({ 
   extname: 'hbs',
@@ -20,19 +23,19 @@ app.get('/', (req, res) => {
 //Staff routes:
 
 app.get('/staff/stations', (req, res) => {
-  res.render('staff-stations', {
+  res.render('staff/staff-stations', {
       title: 'Your stations',
   });
 });
 
 app.get('/staff/task', (req, res) => {
-  res.render('staff-task', {
+  res.render('staff/staff-task', {
       title: 'Task',
   });
 });
 
 app.get('/staff/history', (req, res) => {
-  res.render('staff-history', {
+  res.render('staff/staff-history', {
       title: 'History',
   });
 });
@@ -40,7 +43,7 @@ app.get('/staff/history', (req, res) => {
 //Admin routes:
 
 app.get('/admin', (req, res) => {
-  res.render('admin-menu', {
+  res.render('admin/admin', {
       title: 'Menu',
   });
 });
@@ -48,7 +51,7 @@ app.get('/admin', (req, res) => {
 //Her starter admin products:
 
 app.get('/admin/products', (req, res) => {
-  res.render('admin-products', {
+  res.render('admin/products/admin-products', {
       title: 'Products',
   });
 });
@@ -56,19 +59,27 @@ app.get('/admin/products', (req, res) => {
 //Her starter admin stations:
 
 app.get('/admin/stations', (req, res) => {
-  res.render('admin-stations', {
+  res.render('admin/stations/admin-stations', {
       title: 'Stations',
   });
 });
 
-app.get('/admin/stations/info', (req, res) => {
-  res.render('admin-station-info', {
+app.get('/admin/stations/info', async (req, res) => {
+  try {
+    const stations = await station.findAll();
+    res.render('admin/stations/admin-station-info', {
       title: 'Station info',
-  });
+      stations: stations.map(st => st.toJSON())
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
 });
 
+
 app.get('/admin/stations/manage', (req, res) => {
-  res.render('admin-station-manage', {
+  res.render('admin/stations/admin-station-manage', {
       title: 'Manage',
   });
 });
@@ -76,25 +87,25 @@ app.get('/admin/stations/manage', (req, res) => {
 //Her starter admin staff:
 
 app.get('/admin/staff', (req, res) => {
-  res.render('admin-staff', {
+  res.render('admin/staff/admin-staff', {
       title: 'Staff',
   });
 });
 
 app.get('/admin/add-staff', (req, res) => {
-  res.render('admin-add-staff', {
+  res.render('admin/staff/admin-add-staff', {
       title: 'Add new staff',
   });
 });
 
 app.get('/admin/add-staff/stations', (req, res) => {
-  res.render('admin-add-staff-stations', {
+  res.render('admin/staff/admin-add-staff-stations', {
       title: 'Add new staff to stations',
   });
 });
 
 app.get('/admin/staff-info', (req, res) => {
-  res.render('admin-staff-info', {
+  res.render('admin/staff/admin-staff-info', {
       title: 'Staff info',
   });
 });

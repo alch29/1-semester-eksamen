@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <headline class="headerText">Products</headline>
+</head>
+<body>
+  <div>
+    
+    <div class="button1">
+      <div class="buttonContent">
+        <div> + </div>
+        <div>Add New Product</div>
+      </div>
+
+    </div>
+
+    <table>
+
+      <div>
+        <paragraph>Name</paragraph>
+        <div> Icon </div>
+      </div>
+
+      <tbody>
+        {{#each products}}
+        <div> 
+          <td>{{this.name}}</td>
+            <a href="/admin/products/{{this.id}}/edit">Edit</a>
+        </div>
+        {{/each}}
+      </tbody>
+
+    </table>
+    
+  </div>
+  
+</body>
+</html>

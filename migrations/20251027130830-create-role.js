@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false
       },
       is_admin: {
-        type: Sequelize.ENUM('admin', 'staff'),
+        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       createdAt: {

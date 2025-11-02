@@ -18,7 +18,19 @@
         {{!-- Til billeder taget --}}
     </div>
 </div>
-<div class="accordion">
+
+<script id="accordionTemplate" type="text/x-handlebars-template">
+  <div class="productAccordion">
+    {{#each products}}
+      <div class="productAccordionTitle">{{this.name}}</div>
+      <div class="productAccordionContent">
+        {{this.measurement.measurement_symbol}}
+      </div>
+    {{/each}}
+  </div>
+</script>
+
+{{!-- <div class="accordion">
     <div class="accordionHeader">
         <p class="subHeadline">Products</p>
         <i></i>
@@ -32,7 +44,11 @@
         </li>
         {{/each}}
     </ul>
-</div>
+</div> --}}
 <div>
     <a><button class="button2">Upload</button></a>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+<script src="../views.js"></script>

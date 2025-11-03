@@ -92,7 +92,7 @@ app.get('/admin/stations/info/:id', async (req, res) => {
     if (!st) {
       return res.status(404).send('Station not found');
     }
-
+    console.log(st.phone);
     res.render('admin/stations/admin-station-info', {
       title: 'Station info',
       station: st.toJSON()

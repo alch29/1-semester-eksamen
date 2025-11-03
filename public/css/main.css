@@ -76,6 +76,7 @@ body {
   font-family: var(--subheading);
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
+  box-sizing: border-box;
 }
 
 .button2{
@@ -90,6 +91,7 @@ body {
   font-family: var(--subheading);
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
+  box-sizing: border-box;
 }
 
 .deleteStaff{
@@ -153,4 +155,18 @@ body {
   width: 309px;
   height: 37px;
   margin-bottom: 18px;
+}
+
+.topBotBorderBox{
+  width: 309px;
+  border-top: 1px solid var(--primary-text);
+  border-bottom: 1px solid var(--primary-text);
+  padding: 4px 0;
+}
+
+.checkboxCourt{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;  
 }

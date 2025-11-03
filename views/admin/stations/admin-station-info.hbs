@@ -1,28 +1,30 @@
-<div><a href="/admin/stations">&lt;&lt;</a>{{station.name}}</div>
-
+<div><a href="/admin/stations">&lt;&lt;</a><span class="headline">{{station.name}}</span></div>
+<br>
 <div>
-  <div>Address</div>
+  <div><b>Address</b></div>
   <div>{{station.address}}</div>
 </div>
-
+<br>
 <div>
-  <div>Contact information</div>
-  <div>Phone: +45 {{staion.phone}}</div>
+  <div><b>Contact information</b></div>
+  <div>Phone: +45 {{station.phone}}</div>
   <div>Mail: {{station.email}}</div>
 </div>
-
-<div>
-  <input type="checkbox" value="cleanForecourt">
+<br>
+<div class="topBotBorderBox checkboxCourt">
+  <input type="checkbox" id="cleanForecourt" value="cleanForecourt">
   <label for="cleanForecourt">Clean forecourt</label>
 </div>
 
-<div>Staff member</div>
+<br>
+<div class="headline">Staff member</div>
+<br>
 {{#if station.user}}
-  <div>{{station.user.name}}</div>
+  <div class="topBotBorderBox">{{station.user.name}}</div>
 {{else}}
   <div>No staff member assigned</div>
 {{/if}}
-
+<br>
 <a href="/admin/stations/manage?stationId={{station.id}}&userId={{station.user.id}}" class="button1">
   Manage staff
 </a>

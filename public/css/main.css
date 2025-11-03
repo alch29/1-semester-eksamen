@@ -127,7 +127,7 @@ body {
   overflow: hidden;
   position: relative;
   margin-top: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .stationCard img {
@@ -149,3 +149,8 @@ body {
   margin: 0;
 }
 
+.searchField{
+  width: 309px;
+  height: 37px;
+  margin-bottom: 18px;
+}

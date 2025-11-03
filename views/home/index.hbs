@@ -1,10 +1,16 @@
 
 {{!-- test to be removed  --}}
-<p class="headline">This is a headline</p>
-<p class="subHeadline">This is a subheadline</p>
-<p class="paragraph">This is a paragraph</p>
-<div class="box"><p>box shadow</p></div>
+<div class="loginCard">
+    <div class="mainCard">
+        <h1 class="headline">Login</h1>
+        <form method="post" action="/login">
+        <input type="email" name="email" id="email" placeholder="Email" required/>
+        <input type="password" name="password" id="password" placeholder="Password" required/>
+        <div class="buttonContainer">
+            <button class="button2">Login</button>
+            <a class="forgotPassword">Forgot password?</a>
+        </div>
+        </form>
+    </div>
+</div>
 
-<button class="button1">Manage options</button>
-<button class="button2">Save changes</button>
-<a class="deleteStaff">Delete staff</a>

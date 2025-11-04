@@ -170,3 +170,13 @@ body {
   gap: 8px;
   padding: 10px;  
 }
+.arrow{
+  margin-left: auto;
+  margin-right: 8px;
+  font-size: 28px;
+  color: var(--primary-text);
+  padding-right: 12px;
+}
+.lowLineHeight{
+  line-height: 0.8;
+}

@@ -180,3 +180,8 @@ body {
 .lowLineHeight{
   line-height: 0.8;
 }
+
+.centerText{
+  padding-left: 12px;
+  padding-top: 4px;
+}

@@ -19,6 +19,9 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs');
 app.set('views', './views/');
 
+const routes = require('./routes');
+app.use('/', routes);
+
 app.get('/', (req, res) => {
   res.render('index', {
       title: 'Login',

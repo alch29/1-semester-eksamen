@@ -76,6 +76,7 @@ body {
   font-family: var(--subheading);
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
+  box-sizing: border-box;
 }
 
 .button2{
@@ -90,6 +91,7 @@ body {
   font-family: var(--subheading);
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
+  box-sizing: border-box;
 }
 
 .deleteStaff{
@@ -119,6 +121,69 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.stationCard {
+  width: 309px;
+  height: 91px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.stationCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stationCardOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 38%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin: 0;
+}
+
+.searchField{
+  width: 309px;
+  height: 37px;
+  margin-bottom: 18px;
+}
+
+.topBotBorderBox{
+  width: 309px;
+  border-top: 1px solid var(--primary-text);
+  border-bottom: 1px solid var(--primary-text);
+  padding: 4px 0;
+}
+
+.checkboxCourt{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;  
+}
+.arrow{
+  margin-left: auto;
+  margin-right: 8px;
+  font-size: 28px;
+  color: var(--primary-text);
+  padding-right: 12px;
+}
+.lowLineHeight{
+  line-height: 0.8;
+}
+
+.centerText{
+  padding-left: 12px;
+  padding-top: 4px;
 }
 
 .temp-products-container {

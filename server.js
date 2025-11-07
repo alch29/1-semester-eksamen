@@ -1,14 +1,19 @@
+const express = require('express');
 const app = require("./app");
 const { engine } = require('express-handlebars');
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 const db = require('./models');
 const { image, measurement, product, role, station, user } = db;
-
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('hbs', engine({ 
   extname: 'hbs',
   layoutsDir: './views/layouts',
+  helpers: {
+    eq: (a, b) => a === b
+  }
 }));
 
 app.set('view engine', 'hbs');
@@ -65,17 +70,11 @@ app.get('/admin/products', async (req, res) => {
 
 //Her starter admin stations:
 
-app.get('/admin/stations', (req, res) => {
-  res.render('admin/stations/admin-stations', {
-      title: 'Stations',
-  });
-});
-
-app.get('/admin/stations/info', async (req, res) => {
+app.get('/admin/stations', async (req, res) => {
   try {
     const stations = await station.findAll();
-    res.render('admin/stations/admin-station-info', {
-      title: 'Station info',
+    res.render('admin/stations/admin-stations', {
+      title: 'Stations',
       stations: stations.map(st => st.toJSON())
     });
   } catch (err) {
@@ -85,11 +84,47 @@ app.get('/admin/stations/info', async (req, res) => {
 });
 
 
-app.get('/admin/stations/manage', (req, res) => {
+app.get('/admin/stations/info/:id', async (req, res) => {
+  try {
+    const stationId = req.params.id;
+
+    const st = await station.findByPk(stationId, {
+      include:[{
+        model: db.user,
+        as: 'user',
+        attributes: ['id', 'name']
+      }]
+    });
+
+    if (!st) {
+      return res.status(404).send('Station not found');
+    }
+    console.log(st.phone);
+    res.render('admin/stations/admin-station-info', {
+      title: 'Station info',
+      station: st.toJSON()
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+});
+
+app.get('/admin/stations/manage', async (req, res) => {
+  const stationId = parseInt(req.query.stationId, 10);
+  const currentUserId = parseInt(req.query.userId, 10) || null;
+
+  const users = await db.user.findAll({ attributes: ['id', 'name', 'email'] });
+
   res.render('admin/stations/admin-station-manage', {
-      title: 'Manage',
+    title: 'Manage Station Staff',
+    users: users.map(u => u.toJSON()),
+    currentUserId,
+    stationId
   });
 });
+
+
 
 //Her starter admin staff:
 

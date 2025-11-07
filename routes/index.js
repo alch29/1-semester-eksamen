@@ -1,7 +1,8 @@
 const express = require("express");
-const HomeController = require("../controllers/HomeController");
+const staffController = require("../controllers/staffController");
 const router = express.Router();
-router.get("/", HomeController.index);
-module.exports = router;
 
-router.get('/staff/stations', HomeController.showStaffStations);
+
+router.get('/staff/stations', staffController.showStaffStations);
+
+module.exports = router;

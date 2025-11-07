@@ -1,0 +1,20 @@
+<div class="header">
+    <p class="headline">Your stations</p>
+    <a><button class="button1">View history</button></a>
+</div>
+<div>
+    {{#each stations}}
+    <a>
+        <div class="stationCard box">
+            <img class="stationPlaceholderImg">
+            <div>
+                <div>
+                    <p class="subHeadline">{{this.name}}</p>
+                    <p class="subHeadline">{{this.address}}</p>
+                </div>
+                <i></i>
+            </div>
+        </div>
+    </a>
+    {{/each}}
+</div>

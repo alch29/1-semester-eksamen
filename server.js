@@ -1,6 +1,6 @@
 const app = require("./app");
 const { engine } = require('express-handlebars');
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 const db = require('./models');
 const { image, measurement, product, role, station, user } = db;
@@ -22,16 +22,44 @@ app.get('/', (req, res) => {
 
 //Staff routes:
 
-app.get('/staff/stations', (req, res) => {
-  res.render('staff/staff-stations', {
-      title: 'Your stations',
-  });
-});
+// app.get('/staff/stations', async (req, res) => {
+//   try {
+//     const stations = await station.findAll();
+//     const allStations = stations.map(st => st.toJSON())
+//     res.render('staff/staff-stations', {
+//       title: 'Your stations',
+//       stations: allStations,
+//       totalStations: allStations.length
+//     });
+//   } catch (err) {
+//     console.error('Database error:', err);
+//     res.status(500).send('Database error');
+//   }
+// });
 
-app.get('/staff/task', (req, res) => {
-  res.render('staff/staff-task', {
+app.get('/staff/task', async (req, res) => {
+  try {
+    const products = await product.findAll({
+      //inkludere measurements tabellen, så den kan tage navnet fra products tabel og tage symbolet fra measurements tabel.
+      include: [
+        {
+          model: measurement,
+          as: 'measurement',
+          attributes: ['measurement_symbol']
+        }
+      ]
+    });
+
+    const allProducts = products.map(pr => pr.toJSON());
+
+    res.render('staff/staff-task', {
       title: 'Task',
-  });
+      products: allProducts
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
 });
 
 app.get('/staff/history', (req, res) => {

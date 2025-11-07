@@ -1,4 +1,3 @@
-// controllers/adminController.js
 const { station, user } = require('../models');
 
 // GET /admin/stations — list all stations
@@ -32,7 +31,6 @@ exports.getStationInfo = async (req, res) => {
     });
 
     if (!st) {
-      console.warn(`Station with ID ${stationId} not found`);
       return res.status(404).send('Station not found');
     }
 

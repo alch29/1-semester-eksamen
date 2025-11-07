@@ -152,3 +152,20 @@ body {
   width: 100%;
   padding: 5px;
 }
+.temp-products-container {
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between; 
+  margin: 1rem;
+  max-width: 100%;
+}
+
+.temp-products{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding-bottom: 4px;
+  border-bottom: #EBEBEB 1px solid;
+}

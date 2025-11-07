@@ -1,7 +1,10 @@
-const express = require("express");
-const HomeController = require("../controllers/HomeController");
+const express = require('express');
 const router = express.Router();
-router.get("/", HomeController.index);
-module.exports = router;
 
-router.get('/staff/stations', HomeController.showStaffStations);
+const adminRoutes = require('./adminRoutes');
+// const staffRoutes = require('./staffRoutes');
+
+router.use('/admin', adminRoutes);
+// router.use('/staff', staffRoutes);
+
+module.exports = router;

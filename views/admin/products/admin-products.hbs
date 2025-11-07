@@ -15,25 +15,18 @@
       </div>
 
     </div>
-
-    <table>
-
       <div>
-        <paragraph>Name</paragraph>
-        <div> Icon </div>
+        {{#each products}}
+
+      <div class="temp-products-container">
+        <div class="temp-products">
+          {{this.name}}
+          <a href="/admin/products/{{this.id}}/edit">Edit</a>
+        </div>
       </div>
 
-      <tbody>
-        {{#each products}}
-        <div> 
-          <td>{{this.name}}</td>
-            <a href="/admin/products/{{this.id}}/edit">Edit</a>
-        </div>
         {{/each}}
-      </tbody>
-
-    </table>
-    
+      </div>
   </div>
   
 </body>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <headline class="headerText">Products</headline>
+  <headline class="headerText">Staff </headline>
 </head>
 <body>
   <div>
@@ -11,30 +11,20 @@
     <div class="button1">
       <div class="buttonContent">
         <div> + </div>
-        <div>Add New Product</div>
+        <div>Add New Staff</div>
       </div>
 
     </div>
-
-    <table>
-
       <div>
-        <paragraph>Name</paragraph>
-        <div> Icon </div>
-      </div>
-
-      <tbody>
-        {{#each products}}
-        <div> 
-          <td>{{this.name}}</td>
-            <a href="/admin/products/{{this.id}}/edit">Edit</a>
-        </div>
+        {{#each staff}}
+          <div class="temp-products-container">
+            <div class="temp-products">
+              {{this.name}}
+              <a href="/admin/staff/{{this.id}}/edit">Edit</a>
+            </div>
+          </div>
         {{/each}}
-      </tbody>
-
-    </table>
-    
+      </div>
   </div>
-  
 </body>
 </html>

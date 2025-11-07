@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       product.belongsTo(models.user, {foreignKey: 'user_id'});
-      product.hasOne(models.measurement, {foreignKey: 'measurement_id'});
+      product.belongsTo(models.measurement, {foreignKey: 'measurement_id', as: 'measurement'});
     }
   }
   product.init({

@@ -1,4 +1,32 @@
-const { station, user } = require('../models');
+const { station, user, product } = require('../models');
+
+// GET /admin/staff
+exports.getAdminStaff = async (req, res) => {
+  try {
+    const staff = await user.findAll();
+    res.render('admin/staff/admin-staff', {
+        title: 'staff',
+      staff: staff.map(stf => stf.toJSON())
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+// GET /admin/products — list all products
+exports.getAdminProducts = async (req, res) => {
+  try {
+    const products = await product.findAll();
+    res.render('admin/products/admin-products', {
+        title: 'Products',
+      products: products.map(prd => prd.toJSON())
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
 
 // GET /admin/stations — list all stations
 exports.getStations = async (req, res) => {

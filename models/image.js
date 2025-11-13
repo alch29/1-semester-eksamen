@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   image.init({
-    file_path: DataTypes.STRING,
+    filename: DataTypes.STRING,
+    mimetype: DataTypes.STRING,
+    size: DataTypes.INTEGER,
+    data: DataTypes.BLOB('long'),
     user_id: DataTypes.INTEGER
   }, {
     sequelize,

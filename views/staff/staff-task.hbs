@@ -35,6 +35,18 @@
     </ul>
 </div>
 
-<div>
-    <a><button class="button2">Upload</button></a>
-</div>
+<form action="/staff/stations" method="post" enctype="multipart/form-data">
+   
+    <div>
+        <label for="image">Vaskehal</label>
+        <input type="file" id="image-carwash" name="image" accept="image/*" multiple>
+    </div>
+
+    <div>
+        <label for="image">Forplads</label>
+        <input type="file" id="image-forcourt" name="image" accept="image/*" multiple>
+    </div>
+
+   <button type="submit" class="button2">Upload</button>
+
+</form>

@@ -24,7 +24,7 @@ app.use('/', routes);  // all admin and staff routes are mounted here
 
 
 app.get('/', (req, res) => {
-  res.render('index', {
+  res.render('home/index', {
       title: 'Login',
   });
 });

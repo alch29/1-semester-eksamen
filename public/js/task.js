@@ -17,4 +17,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Vis filnavne når filer vælges
+
+    const fileInputs = document.querySelectorAll('.imageInput');
+    
+    fileInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const fileNameSpan = this.parentElement.querySelector('.fileName');
+            
+            if (this.files.length > 0) {
+                if (this.files.length === 1) {
+                    fileNameSpan.textContent = this.files[0].name;
+                } else {
+                    fileNameSpan.textContent = `${this.files.length} filer valgt`;
+                }
+            } else {
+                fileNameSpan.textContent = 'Ingen filer valgt';
+            }
+        });
+    });
+
 });

@@ -194,7 +194,7 @@ body {
 
 .accordionHeader {
   border: 0;
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   border-radius: var(--primary-border-r);
   box-shadow: var(--primary-box-shadow);
   color: var(--primary-text);
@@ -210,11 +210,11 @@ body {
 }
 
 .accordionHeader.active {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
 }
 
 .accordionHeader:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
 }
 
 .accordionProduct {
@@ -240,4 +240,33 @@ body {
   margin-bottom: 1rem;
   padding-bottom: 4px;
   border-bottom: #EBEBEB 1px solid;
+}
+
+.imageInput {
+  display: none;
+}
+
+.imageUploadContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid 1px #BFBFBF;
+  padding: 14px;
+  border-radius: var(--primary-border-r);
+
+}
+
+.customImageUpload {
+  gap: 10px;
+  cursor: pointer;
+}
+
+.customImageUpload span {
+  width: 100%;
+}
+
+.gap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

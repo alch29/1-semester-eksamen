@@ -1,55 +1,68 @@
-<div>
-    <div class="header">
-        <a href="staff/stations"><i></i></a>
-        <p class="headline">{{station.name}}</p>
-    </div>
-    <div class="header">
-        <p class="subHeadline">{{station.address}}</p>
-        <p class="subHeadline">{{this.date}}</p>
-    </div>
-</div>
-
-{{!-- <div class="imageUploadBox">
-    <p class="subHeadline">Vaskehal</p>
-    <a><button class="button1"><i></i></button></a>
+<div class="gap">   
     <div>
-    </div>
-</div>
-<div class="imageUploadBox">
-    <p class="subHeadline">Forplads</p>
-    <a><button class="button1"><i></i></button></a>
-    <div>
-    </div>
-</div> --}}
-
-<div>
-    <button class="accordionHeader">
-        <p class="subHeadline">Products</p>
-        <i></i>
-    </button>
-    <div class="accordionContent">
-        {{#each products}}
-            <div class="accordionProduct"> 
-                <p class="subHeadline">{{this.name}}</p>
-                <input type="number" placeholder="Antal">
-                <p class="paragraph">{{this.[measurement.measurement_symbol]}}</p>
-            </div>
-        {{/each}}
-    </div>
-</div>
-
-<form action="/staff/stations" method="post" enctype="multipart/form-data">
-   
-    <div>
-        <label for="image">Vaskehal</label>
-        <input type="file" id="image-carwash" name="image" accept="image/*" multiple>
+        <div class="header">
+            <a href="staff/stations"><i></i></a>
+            <p class="headline">{{station.name}}</p>
+        </div>
+        <div class="header">
+            <p class="subHeadline">{{station.address}}</p>
+            <p class="subHeadline">{{this.date}}</p>
+        </div>
     </div>
 
     <div>
-        <label for="image">Forplads</label>
-        <input type="file" id="image-forcourt" name="image" accept="image/*" multiple>
+        <button class="accordionHeader">
+            <p class="subHeadline">Products</p>
+            <i></i>
+        </button>
+        <div class="accordionContent">
+            {{#each products}}
+                <div class="accordionProduct"> 
+                    <p class="subHeadline">{{this.name}}</p>
+                    <input type="number" placeholder="Antal">
+                    <p class="paragraph">{{this.[measurement.measurement_symbol]}}</p>
+                </div>
+            {{/each}}
+        </div>
     </div>
 
-   <button type="submit" class="button2">Upload</button>
+    {{!-- <form action="/staff/stations" method="post" enctype="multipart/form-data">
+    
+        <div>
+            <label for="image">Vaskehal</label>
+            <input type="file" id="image-carwash" name="image" accept="image/*" multiple>
+        </div>
 
-</form>
+        <div>
+            <label for="image">Forplads</label>
+            <input type="file" id="image-forcourt" name="image" accept="image/*" multiple>
+        </div>
+
+    <button type="submit" class="button2">Upload</button>
+
+    </form> --}}
+
+    <form action="/staff/stations" method="post" enctype="multipart/form-data" class="gap">
+    
+        <div class="imageUploadContainer">
+            <span class="subHeadline">Vaskehal</span>
+            <label for="image-carwash" class="customImageUpload">
+                <span class="button1">Vælg billeder</span>
+            </label>
+            <input type="file" id="image-carwash" name="image" accept="image/*" multiple class="imageInput">
+            <span class="paragraph fileName" id="filename-carwash">Ingen filer valgt</span>
+        </div>
+
+        <div class="imageUploadContainer">
+            <span class="subHeadline">Forplads</span>
+            <label for="image-forcourt" class="customImageUpload">
+                <span class="button1">Vælg billeder</span>
+            </label>
+            <input type="file" id="image-forcourt" name="image" accept="image/*" multiple class="imageInput">
+            <span class="paragraph fileName" id="filename-forcourt">Ingen filer valgt</span>
+        </div>
+
+    <button type="submit" class="button2">Upload</button>
+
+    </form>
+</div> 

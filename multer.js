@@ -1,16 +1,6 @@
 const multer = require('multer');
 const path = require('path');
 
-// const storage = multer.diskStorage({
-//     destination: function (req, files, cb) {
-//         cb(null, 'test-images/');
-//     },
-//     filename: function (req, files, cb) {
-//         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-//         cb(null, uniqueSuffix + path.extname(files.originalname));
-//     }
-// });
-
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, files, cb) => {

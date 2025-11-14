@@ -1,38 +1,41 @@
 <div>
     <div class="header">
-        <i></i>
-        <p class="headline">Station name</p>
+        <a href="staff/stations"><i></i></a>
+        <p class="headline">{{station.name}}</p>
+    </div>
+    <div class="header">
+        <p class="subHeadline">{{station.address}}</p>
+        <p class="subHeadline">{{this.date}}</p>
     </div>
 </div>
-<div class="imageUploadBox">
+
+{{!-- <div class="imageUploadBox">
     <p class="subHeadline">Vaskehal</p>
     <a><button class="button1"><i></i></button></a>
     <div>
-        {{!-- Til billeder taget --}}
     </div>
 </div>
 <div class="imageUploadBox">
     <p class="subHeadline">Forplads</p>
     <a><button class="button1"><i></i></button></a>
     <div>
-        {{!-- Til billeder taget --}}
     </div>
-</div>
+</div> --}}
 
-<div class="accordion">
-    <div class="accordionHeader">
+<div>
+    <button class="accordionHeader">
         <p class="subHeadline">Products</p>
         <i></i>
-    </div>
-    <ul class="accordionList">
+    </button>
+    <div class="accordionContent">
         {{#each products}}
-        <li class="listItem">
-            <p class="paragraph">{{this.name}}</p>
-            <input>
-            <p class="paragraph">{{measurement.measurement_symbol}}</p>
-        </li>
+            <div class="accordionProduct"> 
+                <p class="subHeadline">{{this.name}}</p>
+                <input type="number" placeholder="Antal">
+                <p class="paragraph">{{this.[measurement.measurement_symbol]}}</p>
+            </div>
         {{/each}}
-    </ul>
+    </div>
 </div>
 
 <form action="/staff/stations" method="post" enctype="multipart/form-data">

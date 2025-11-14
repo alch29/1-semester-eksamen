@@ -24,6 +24,15 @@ exports.getStaffTask = async (req, res) => {
     const stationId = parseInt(req.params.id);
     const currentStation = await station.findByPk(stationId, { raw: true });
 
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+    let date = new Date();
+    let day = date.getDate();
+    let month = months[date.getMonth()];
+    let year = date.getFullYear();
+
+    let currentDate = `${month} ${day}, ${year}`;
+
     if (!currentStation) {
       return res.status(404).render('error', {
         message: `Station med id ${stationId} blev ikke fundet`
@@ -45,7 +54,8 @@ exports.getStaffTask = async (req, res) => {
     res.render('staff/staff-task', {
       title: currentStation.name,
       station: currentStation,
-      products: products
+      products: products,
+      date: currentDate
     });
   } catch (err) {
     console.error('Database error:', err);

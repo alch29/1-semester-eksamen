@@ -59,8 +59,6 @@ exports.getStationManage = async (req, res) => {
       raw: true
     });
 
-    // console.log(`Fetched ${users.length} users for station management`);
-
     res.render('admin/stations/admin-station-manage', {
       title: 'Manage Station Staff',
       users: users,
@@ -73,3 +71,23 @@ exports.getStationManage = async (req, res) => {
     res.status(500).send('Database error');
   }
 };
+
+// POST /admin/stations/:stationId/update-user — update station's user
+exports.updateStationUser = async (req, res) => {
+  try {
+    const { stationId } = req.params;
+    const { userId } = req.body;
+
+    await station.update(
+      { user_id: userId },
+      { where: { id: stationId } }
+    );
+
+    res.redirect(`/admin/stations/info/${stationId}`);
+  } catch (err) {
+    console.error('Database error in updateStationUser:', err.message);
+    res.status(500).send('Database error');
+  }
+};
+
+

@@ -171,6 +171,17 @@ body {
   padding: 4px 0;
 }
 
+.botBorderBox{
+  width: 309px;
+  border-bottom: 1px solid var(--primary-text);
+  padding: 4px 0;
+}
+
+.topBorderBox{
+  width: 309px;
+  border-top: 1px solid var(--primary-text);
+}
+
 .checkboxCourt{
   display: flex;
   align-items: center;
@@ -327,3 +338,20 @@ body {
 .textAlignCenter{
   text-align: center;
 }
+
+.buttonRow {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 24px;
+}
+
+.cancelButton{
+ width: 50%;
+ cursor: pointer;
+}
+
+.confirmButton{
+  width: 50%;
+  cursor: pointer;
+}
+

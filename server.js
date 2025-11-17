@@ -1,7 +1,7 @@
 const express = require('express');
 const app = require("./app");
 const { engine } = require('express-handlebars');
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 const db = require('./models');
 const { image, measurement, product, role, station, user } = db;

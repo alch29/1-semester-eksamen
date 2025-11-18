@@ -27,6 +27,19 @@ exports.getAdminProducts = async (req, res) => {
   }
 };
 
+exports.getAdminAddProducts = async (req, res) => {
+  try {
+    const products = await product.findAll();
+    res.render('admin/products/partials/admin-add-products', {
+        title: 'Add Products',
+        products: products.map(prd => prd.toJSON())
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
 
 // GET /admin/stations — list all stations
 exports.getStations = async (req, res) => {

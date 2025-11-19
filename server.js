@@ -1,12 +1,14 @@
 const express = require('express');
 const app = require("./app");
 const { engine } = require('express-handlebars');
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 const db = require('./models');
 const { image, measurement, product, role, station, user } = db;
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.engine('hbs', engine({ 
   extname: 'hbs',
@@ -18,6 +20,7 @@ app.engine('hbs', engine({
 
 app.set('view engine', 'hbs');
 app.set('views', './views/');
+
 
 const routes = require('./routes'); // index.js inside routes folder
 app.use('/', routes);  // all admin and staff routes are mounted here

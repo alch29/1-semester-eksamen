@@ -82,11 +82,11 @@ app.get('/', (req, res) => {
 
 //Admin routes:
 
-app.get('/admin', (req, res) => {
-  res.render('admin/admin', {
-      title: 'Menu',
-  });
-});
+// app.get('/admin', (req, res) => {
+//   res.render('admin/admin', {
+//       title: 'Menu',
+//   });
+// });
 
 //Her starter admin products:
 

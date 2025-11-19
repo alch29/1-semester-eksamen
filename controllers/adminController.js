@@ -1,6 +1,12 @@
 const { raw } = require('mysql2');
 const { station, user } = require('../models');
 
+exports.getAdmin = (req, res) => {
+  res.render('admin/admin', {
+    title: 'Menu',
+  });
+}
+
 // GET /admin/stations — list all stations
 exports.getStations = async (req, res) => {
   try {

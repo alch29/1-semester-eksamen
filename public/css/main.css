@@ -213,37 +213,44 @@ body {
   padding-top: 4px;
 }
 
-.productAccordion {
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordionHeader {
+  border: 0;
+  background-color: var(--secondary-color);
+  border-radius: var(--primary-border-r);
+  box-shadow: var(--primary-box-shadow);
+  color: var(--primary-text);
+  font-family: var(--subheading);
+  font-weight: var(--subheading-weight);
+  font-size: var(--subheading-size);
+  
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0 10px 0 10px;
   width: 100%;
+  text-align: left;
+}
+
+.accordionHeader.active {
+  background-color: var(--primary-color);
+}
+
+.accordionHeader:hover {
+  background-color: var(--primary-color);
+}
+
+.accordionProduct {
+  border-bottom: solid 0.5px var(--primary-text);
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
-  border: 1px solid #999;
-  border-radius: 5px;
-  float: left;
 }
 
-.productAccordionTitle {
-  background-color: #999;
-  color: white;
-  width: 100%;
-  float: left;
-  padding: 5px;
-  font-weight: bold;
-  border-radius: 5px;
-  margin-top: 5px;
-}
-
-.productAccordionTitle.active {
-  background-color: #999;  
-  border-radius: 5px 5px 0 0;
-}
-
-.productAccordionContent {
-  display: none;
-  border: 1px solid #999;
-  float: left;
-  width: 100%;
-  padding: 5px;
-}
 .temp-products-container {
   display: flex;
   flex-direction: row; 
@@ -355,3 +362,31 @@ body {
   cursor: pointer;
 }
 
+.imageInput {
+  display: none;
+}
+
+.imageUploadContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid 1px #BFBFBF;
+  padding: 14px;
+  border-radius: var(--primary-border-r);
+
+}
+
+.customImageUpload {
+  gap: 10px;
+  cursor: pointer;
+}
+
+.customImageUpload span {
+  width: 100%;
+}
+
+.gap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

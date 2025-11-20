@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <headline class="headerText">Products</headline>
+  <headline class="headerText">Partial for admin-add-products</headline>
 </head>
 <body>
+        <a href="/admin/products/" > <p><<</p>  </a>
   <div>
-    
-<h1>Partial for admin-products</h1>
-
     <a href="#" class="button1">
       <div class="buttonContent">
         <div> + </div>
@@ -17,18 +15,40 @@
       </div>
     </a>
 
-      <div>
-        {{#each products}}
+    <div>
+      {{#each products}}
+    <div class="temp-products-container">
+      <div class="temp-products">
+        {{this.name}}
+        <a href="/admin/products/{{this.id}}/edit">Edit</a>
+      </div>
+    </div>
+      {{/each}}
+    </div>
+  </div>
 
-      <div class="temp-products-container">
-        <div class="temp-products">
-          {{this.name}}
-          <a href="/admin/products/{{this.id}}/edit">Edit</a>
+  <div class="modal-container">
+    <div>
+      <h2>Add New Product</h2>   
+    </div >
+    <form action="/admin/products" method="POST"> 
+        <input type="text" class="inputProductName" placeholder="Product name" name="productName" required>
+        <div class="modal-chooseUnit">
+          <h3>Choose unit</h3> 
+          <select id="measurementSelect" name="measurementId" required>
+              {{#each measurements}}
+                  <option value="{{this.id}}">{{this.measurement_symbol}}</option>
+              {{/each}}
+          </select>
         </div>
-      </div>
 
-        {{/each}}
-      </div>
+        {{!-- Tag alt fra chooseunit field og product name field, og indsæt i database --}}
+        <button type="submit" class="button1">
+          <div class="buttonContent">
+            <p>Add New Product</p>
+          </div>
+        </button>
+      </form>
   </div>
   
 </body>

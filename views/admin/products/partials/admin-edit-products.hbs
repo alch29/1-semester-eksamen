@@ -7,10 +7,10 @@
 </head>
 <body>
   <div>
-    <a href="/admin/" > <p><<</p>  </a>
+    
+<h1>Partial for admin-edit-products</h1>
 
-
-    <a href="/admin/products/partials/admin-add-products" class="button1">
+    <a href="#" class="button1">
       <div class="buttonContent">
         <div> + </div>
         <div>Add New Product</div>
@@ -23,7 +23,7 @@
       <div class="temp-products-container">
         <div class="temp-products">
           {{this.name}}
-          <a href="/admin/products/partials/admin-edit-products/{{this.id}}">Edit</a>
+          <a href="/admin/products/{{this.id}}/edit">Edit</a>
         </div>
       </div>
 

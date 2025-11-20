@@ -1,4 +1,4 @@
-const { station, user, product } = require('../models');
+const { station, user, product, measurement } = require('../models');
 
 // GET /admin/staff
 exports.getAdminStaff = async (req, res) => {
@@ -27,15 +27,71 @@ exports.getAdminProducts = async (req, res) => {
   }
 };
 
+// GET /admin/products/partials/admin-add-products — add products partial
 exports.getAdminAddProducts = async (req, res) => {
   try {
     const products = await product.findAll();
+    const measurements = await measurement.findAll();
+
     res.render('admin/products/partials/admin-add-products', {
         title: 'Add Products',
-        products: products.map(prd => prd.toJSON())
+        products: products.map(prd => prd.toJSON()),
+        measurements: measurements.map(msm => msm.toJSON())
     });
+
+
   } catch (err) {
     console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+// POST /admin/products/partials/admin-add-products — handle add product form 
+exports.postAdminAddProduct = async (req, res) => {
+  try {
+    const { productName, measurementId } = req.body;
+
+    // Insert into database
+    await product.create({
+      name: productName,
+      measurement_id: measurementId,
+      is_deleted: false,
+      // user_id: req.user.id  CHANGE TO THIS ONCE U HAVE A USER
+      user_id: 1 // HARDCODED FOR TESTING
+    });
+
+    res.redirect('/admin/products'); // Redirect back to product list
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+// UNFINISHED EDIT PRODUCT
+exports.getAdminEditProducts = async (req, res) => {
+  try {
+    const productId = req.params.id;
+
+    const prd = await product.findByPk(productId, {
+      include: [{
+        model: product,
+        as: 'product',
+        attributes: ['id', 'name']
+      }]
+    });
+
+    if (!prd) {
+      return res.status(404).send('Product not found');
+    }
+
+    console.log(`Fetched product ${productId}:`, prd.toJSON());
+    res.render('admin/products/partials/admin-edit-products/:id', {
+      title: 'Edit products info',
+      product: prd.toJSON()
+    });
+  } catch (err) {
+    console.error('Database error in getproducts:', err.message);
+    console.error(err);
     res.status(500).send('Database error');
   }
 };

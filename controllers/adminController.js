@@ -13,6 +13,7 @@ exports.getAdminStaff = async (req, res) => {
     res.status(500).send('Database error');
   }
 };
+
 // GET /admin/products — list all products
 exports.getAdminProducts = async (req, res) => {
   try {
@@ -38,7 +39,6 @@ exports.getAdminAddProducts = async (req, res) => {
         products: products.map(prd => prd.toJSON()),
         measurements: measurements.map(msm => msm.toJSON())
     });
-
 
   } catch (err) {
     console.error('Database error:', err);
@@ -67,31 +67,41 @@ exports.postAdminAddProduct = async (req, res) => {
   }
 };
 
-// UNFINISHED EDIT PRODUCT
+// GET /admin/products/partials/admin-edit-products — ediit products partial
 exports.getAdminEditProducts = async (req, res) => {
   try {
+    const measurements = await measurement.findAll();
+    const products = await product.findAll();
     const productId = req.params.id;
+    const prd = await product.findByPk(productId);
 
-    const prd = await product.findByPk(productId, {
-      include: [{
-        model: product,
-        as: 'product',
-        attributes: ['id', 'name']
-      }]
-    });
-
-    if (!prd) {
-      return res.status(404).send('Product not found');
-    }
-
-    console.log(`Fetched product ${productId}:`, prd.toJSON());
-    res.render('admin/products/partials/admin-edit-products/:id', {
-      title: 'Edit products info',
-      product: prd.toJSON()
+    console.log(`Fetched station ${productId}:`, prd.toJSON());
+    res.render('admin/products/partials/admin-edit-products', {
+      title: 'Station info',
+      products: products.map(prd => prd.toJSON()),
+      product: prd.toJSON(),
+      measurements: measurements.map(msm => msm.toJSON())
     });
   } catch (err) {
-    console.error('Database error in getproducts:', err.message);
-    console.error(err);
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+// POST /admin/products/:id — handle edit product form
+exports.postAdminUpdateProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const { name, measurementId } = req.body;
+    await product.update({
+        name: name,
+        measurement_id: measurementId },
+      {
+        where: { id: productId }
+      });
+
+    res.redirect('/admin/products');
+  } catch (err) {
+    console.error('Database error:', err);
     res.status(500).send('Database error');
   }
 };

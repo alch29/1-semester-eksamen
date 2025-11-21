@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   product.init({
     name: DataTypes.STRING,
-    is_deleted: DataTypes.BOOLEAN,
+    is_deleted: DataTypes.BOOLEAN, 
     measurement_id: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER
   }, {

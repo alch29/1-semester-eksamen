@@ -1,3 +1,111 @@
+const { station, user, product, measurement } = require('../models');
+
+// GET /admin/staff
+exports.getAdminStaff = async (req, res) => {
+  try {
+    const staff = await user.findAll();
+    res.render('admin/staff/admin-staff', {
+        title: 'staff',
+      staff: staff.map(stf => stf.toJSON())
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+// GET /admin/products — list all products
+exports.getAdminProducts = async (req, res) => {
+  try {
+    const products = await product.findAll();
+    res.render('admin/products/admin-products', {
+        title: 'Products',
+      products: products.map(prd => prd.toJSON())
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+// GET /admin/products/partials/admin-add-products — add products partial
+exports.getAdminAddProducts = async (req, res) => {
+  try {
+    const products = await product.findAll();
+    const measurements = await measurement.findAll();
+
+    res.render('admin/products/partials/admin-add-products', {
+        title: 'Add Products',
+        products: products.map(prd => prd.toJSON()),
+        measurements: measurements.map(msm => msm.toJSON())
+    });
+
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+// POST /admin/products/partials/admin-add-products — handle add product form 
+exports.postAdminAddProduct = async (req, res) => {
+  try {
+    const { productName, measurementId } = req.body;
+
+    // Insert into database
+    await product.create({
+      name: productName,
+      measurement_id: measurementId,
+      is_deleted: false,
+      // user_id: req.user.id  CHANGE TO THIS ONCE U HAVE A USER
+      user_id: 1 // HARDCODED FOR TESTING
+    });
+
+    res.redirect('/admin/products'); // Redirect back to product list
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+// GET /admin/products/partials/admin-edit-products — ediit products partial
+exports.getAdminEditProducts = async (req, res) => {
+  try {
+    const measurements = await measurement.findAll();
+    const products = await product.findAll();
+    const productId = req.params.id;
+    const prd = await product.findByPk(productId);
+
+    console.log(`Fetched station ${productId}:`, prd.toJSON());
+    res.render('admin/products/partials/admin-edit-products', {
+      title: 'Station info',
+      products: products.map(prd => prd.toJSON()),
+      product: prd.toJSON(),
+      measurements: measurements.map(msm => msm.toJSON())
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+// POST /admin/products/:id — handle edit product form
+exports.postAdminUpdateProduct = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const { name, measurementId } = req.body;
+    await product.update({
+        name: name,
+        measurement_id: measurementId },
+      {
+        where: { id: productId }
+      });
+
+    res.redirect('/admin/products');
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
 const { raw } = require('mysql2');
 const { station, user } = require('../models');
 

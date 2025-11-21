@@ -90,18 +90,18 @@ app.get('/', (req, res) => {
 
 //Her starter admin products:
 
-app.get('/admin/products', async (req, res) => {
-  try {
-    const products = await product.findAll();
-    res.render('admin/products/admin-products', {
-        title: 'Products',
-      products: products.map(prd => prd.toJSON())
-    });
-  } catch (err) {
-    console.error('Database error:', err);
-    res.status(500).send('Database error');
-  }
-});
+// app.get('/admin/products', async (req, res) => {
+//   try {
+//     const products = await product.findAll();
+//     res.render('admin/products/admin-products', {
+//         title: 'Products',
+//       products: products.map(prd => prd.toJSON())
+//     });
+//   } catch (err) {
+//     console.error('Database error:', err);
+//     res.status(500).send('Database error');
+//   }
+// });
 
 //Her starter admin stations:
 
@@ -163,18 +163,18 @@ app.get('/admin/products', async (req, res) => {
 
 //Her starter admin staff:
 
-app.get('/admin/staff', async (req, res) => {
-  try {
-    const staff = await user.findAll();
-    res.render('admin/staff/admin-staff', {
-        title: 'staff',
-      staff: staff.map(stf => stf.toJSON())
-    });
-  } catch (err) {
-    console.error('Database error:', err);
-    res.status(500).send('Database error');
-  }
-});
+// app.get('/admin/staff', async (req, res) => {
+//   try {
+//     const staff = await user.findAll();
+//     res.render('admin/staff/admin-staff', {
+//         title: 'staff',
+//       staff: staff.map(stf => stf.toJSON())
+//     });
+//   } catch (err) {
+//     console.error('Database error:', err);
+//     res.status(500).send('Database error');
+//   }
+// });
 
 app.get('/admin/add-staff', (req, res) => {
   res.render('admin/staff/admin-add-staff', {

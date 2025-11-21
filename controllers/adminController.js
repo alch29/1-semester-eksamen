@@ -106,16 +106,24 @@ exports.postAdminUpdateProduct = async (req, res) => {
   }
 };
 
+const { raw } = require('mysql2');
+const { station, user } = require('../models');
+
+exports.getAdmin = (req, res) => {
+  res.render('admin/admin', {
+    title: 'Menu',
+  });
+}
 
 // GET /admin/stations — list all stations
 exports.getStations = async (req, res) => {
   try {
-    const stations = await station.findAll();
-    console.log('Stations fetched:', stations.length); // log how many rows
+    const stations = await station.findAll( {raw: true} );
 
     res.render('admin/stations/admin-stations', {
       title: 'Stations',
-      stations: stations.map(st => st.toJSON())
+      stations
+      // stations: stations.map(st => st.toJSON())
     });
   } catch (err) {
     console.error('Database error in getStations:', err.message);
@@ -134,17 +142,18 @@ exports.getStationInfo = async (req, res) => {
         model: user,
         as: 'user',
         attributes: ['id', 'name']
-      }]
+      }],
+        raw: true,
+        nest: true
     });
-
+    console.log(st);
     if (!st) {
       return res.status(404).send('Station not found');
     }
 
-    console.log(`Fetched station ${stationId}:`, st.toJSON());
     res.render('admin/stations/admin-station-info', {
       title: 'Station info',
-      station: st.toJSON()
+      station: st
     });
   } catch (err) {
     console.error('Database error in getStationInfo:', err.message);
@@ -160,14 +169,13 @@ exports.getStationManage = async (req, res) => {
     const currentUserId = parseInt(req.query.userId, 10) || null;
 
     const users = await user.findAll({
-      attributes: ['id', 'name', 'email']
+      attributes: ['id', 'name', 'email'],
+      raw: true
     });
-
-    console.log(`Fetched ${users.length} users for station management`);
 
     res.render('admin/stations/admin-station-manage', {
       title: 'Manage Station Staff',
-      users: users.map(u => u.toJSON()),
+      users: users,
       currentUserId,
       stationId
     });
@@ -177,3 +185,23 @@ exports.getStationManage = async (req, res) => {
     res.status(500).send('Database error');
   }
 };
+
+// POST /admin/stations/:stationId/update-user — update station's user
+exports.updateStationUser = async (req, res) => {
+  try {
+    const { stationId } = req.params;
+    const { userId } = req.body;
+
+    await station.update(
+      { user_id: userId },
+      { where: { id: stationId } }
+    );
+
+    res.redirect(`/admin/stations/info/${stationId}`);
+  } catch (err) {
+    console.error('Database error in updateStationUser:', err.message);
+    res.status(500).send('Database error');
+  }
+};
+
+

@@ -1,4 +1,15 @@
-<div><a href="/admin/stations">&lt;&lt;</a><span class="headline">{{station.name}}</span></div>
+<div class="headline headline-with-chevron">
+  <a href="/admin/stations">
+    <span class="double-chevron">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/></svg>
+    </span>
+  </a>
+  <span class="title">
+  {{station.name}}
+  </span>
+</div>
 <br>
 <div>
   <div><b>Address</b></div>
@@ -15,9 +26,8 @@
   <input type="checkbox" id="cleanForecourt" value="cleanForecourt">
   <label for="cleanForecourt">Clean forecourt</label>
 </div>
-
 <br>
-<div class="headline">Staff member</div>
+<div class="headline textAlignCenter">Staff member</div>
 <br>
 {{#if station.user}}
   <div class="topBotBorderBox">{{station.user.name}}</div>

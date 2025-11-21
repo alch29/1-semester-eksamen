@@ -1,11 +1,22 @@
-<a href="/admin/stations/info/{{stationId}}">Cancel</a>
-{{#each users}}
-  <div>
-    <input 
-      type="radio" 
-      name="userId" 
-      value="{{this.id}}" 
-      {{#if (eq this.id ../currentUserId)}}checked{{/if}}>
-    <label>{{this.name}}</label>
+<form action="/admin/stations/{{stationId}}/update-user" method="POST">
+  <div class="buttonRow">
+    <a class="button1 cancelButton" href="/admin/stations/info/{{stationId}}">Cancel</a>
+    <button class="button2 confirmButton" type="submit">Confirm</button>
   </div>
-{{/each}}
+
+
+  <div class="topBorderBox">
+    {{#each users}}
+      <div class="botBorderBox">
+        <input 
+          type="radio" 
+          name="userId" 
+          value="{{this.id}}"
+          {{#if (eq this.id ../currentUserId)}}checked{{/if}}>
+        <label>{{this.name}}</label>
+      </div>
+    {{/each}}
+  </div>
+
+
+</form>

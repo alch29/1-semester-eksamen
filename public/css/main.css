@@ -78,6 +78,7 @@ body {
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 .button2{
@@ -156,6 +157,12 @@ body {
   width: 309px;
   height: 37px;
   margin-bottom: 18px;
+  padding-left: 42px;
+}
+
+.searchField:focus{
+  outline: none;
+  border: 2px solid var(--primary-color);
 }
 
 .topBotBorderBox{
@@ -165,11 +172,31 @@ body {
   padding: 4px 0;
 }
 
+.botBorderBox{
+  width: 309px;
+  border-bottom: 1px solid var(--primary-text);
+  padding: 4px 0;
+}
+
+.topBorderBox{
+  width: 309px;
+  border-top: 1px solid var(--primary-text);
+}
+
 .checkboxCourt{
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
   gap: 8px;
-  padding: 10px;  
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+
+#cleanForecourt{
+  width: 20px;
+  height: 20px;
+
 }
 .arrow{
   margin-left: auto;
@@ -187,37 +214,44 @@ body {
   padding-top: 4px;
 }
 
-.productAccordion {
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordionHeader {
+  border: 0;
+  background-color: var(--secondary-color);
+  border-radius: var(--primary-border-r);
+  box-shadow: var(--primary-box-shadow);
+  color: var(--primary-text);
+  font-family: var(--subheading);
+  font-weight: var(--subheading-weight);
+  font-size: var(--subheading-size);
+  
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0 10px 0 10px;
   width: 100%;
+  text-align: left;
+}
+
+.accordionHeader.active {
+  background-color: var(--primary-color);
+}
+
+.accordionHeader:hover {
+  background-color: var(--primary-color);
+}
+
+.accordionProduct {
+  border-bottom: solid 0.5px var(--primary-text);
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
-  border: 1px solid #999;
-  border-radius: 5px;
-  float: left;
 }
 
-.productAccordionTitle {
-  background-color: #999;
-  color: white;
-  width: 100%;
-  float: left;
-  padding: 5px;
-  font-weight: bold;
-  border-radius: 5px;
-  margin-top: 5px;
-}
-
-.productAccordionTitle.active {
-  background-color: #999;  
-  border-radius: 5px 5px 0 0;
-}
-
-.productAccordionContent {
-  display: none;
-  border: 1px solid #999;
-  float: left;
-  width: 100%;
-  padding: 5px;
-}
 .temp-products-container {
   display: flex;
   flex-direction: row; 
@@ -270,4 +304,125 @@ body {
   border-radius: 4px;
   justify-content: center;
   align-items: center;
+}
+.searchWrap{
+  position: relative;
+  display: inline-block;
+}
+
+.searchIcon{
+  position: absolute;
+  left: 6px;
+  top: 35%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  fill: #000;
+  pointer-events: none; 
+}
+
+.double-chevron {
+  display: inline-flex;
+  align-items: center;
+}
+
+.double-chevron svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.double-chevron svg:last-child {
+  margin-left: -12px;
+}
+
+.headline-with-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 34px;
+}
+
+.headline-with-chevron .double-chevron {
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+}
+
+.headline-with-chevron .double-chevron svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.headline-with-chevron .double-chevron svg:last-child {
+  margin-left: -12px;
+}
+
+.headline-with-chevron .title {
+  text-align: center;
+  flex: 1;
+}
+
+.headline-with-chevron a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary-text);
+}
+
+.title {
+  text-align: center;
+  flex: 1;
+}
+
+.textAlignCenter{
+  text-align: center;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 24px;
+}
+
+.cancelButton{
+ width: 50%;
+ cursor: pointer;
+}
+
+.confirmButton{
+  width: 50%;
+  cursor: pointer;
+}
+
+.imageInput {
+  display: none;
+}
+
+.imageUploadContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid 1px #BFBFBF;
+  padding: 14px;
+  border-radius: var(--primary-border-r);
+
+}
+
+.customImageUpload {
+  gap: 10px;
+  cursor: pointer;
+}
+
+.customImageUpload span {
+  width: 100%;
+}
+
+.gap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

@@ -1,12 +1,14 @@
 const express = require('express');
 const app = require("./app");
 const { engine } = require('express-handlebars');
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 const db = require('./models');
 const { image, measurement, product, role, station, user } = db;
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.engine('hbs', engine({ 
   extname: 'hbs',
@@ -19,12 +21,13 @@ app.engine('hbs', engine({
 app.set('view engine', 'hbs');
 app.set('views', './views/');
 
+
 const routes = require('./routes'); // index.js inside routes folder
 app.use('/', routes);  // all admin and staff routes are mounted here
 
 
 app.get('/', (req, res) => {
-  res.render('index', {
+  res.render('home/index', {
       title: 'Login',
   });
 });
@@ -46,44 +49,44 @@ app.get('/', (req, res) => {
 //   }
 // });
 
-app.get('/staff/task', async (req, res) => {
-  try {
-    const products = await product.findAll({
-      //inkludere measurements tabellen, så den kan tage navnet fra products tabel og tage symbolet fra measurements tabel.
-      include: [
-        {
-          model: measurement,
-          as: 'measurement',
-          attributes: ['measurement_symbol']
-        }
-      ]
-    });
+// app.get('/staff/task', async (req, res) => {
+//   try {
+//     const products = await product.findAll({
+//       //inkludere measurements tabellen, så den kan tage navnet fra products tabel og tage symbolet fra measurements tabel.
+//       include: [
+//         {
+//           model: measurement,
+//           as: 'measurement',
+//           attributes: ['measurement_symbol']
+//         }
+//       ]
+//     });
 
-    const allProducts = products.map(pr => pr.toJSON());
+//     const allProducts = products.map(pr => pr.toJSON());
 
-    res.render('staff/staff-task', {
-      title: 'Task',
-      products: allProducts
-    });
-  } catch (err) {
-    console.error('Database error:', err);
-    res.status(500).send('Database error');
-  }
-});
+//     res.render('staff/staff-task', {
+//       title: 'Task',
+//       products: allProducts
+//     });
+//   } catch (err) {
+//     console.error('Database error:', err);
+//     res.status(500).send('Database error');
+//   }
+// });
 
-app.get('/staff/history', (req, res) => {
-  res.render('staff/staff-history', {
-      title: 'History',
-  });
-});
+// app.get('/staff/history', (req, res) => {
+//   res.render('staff/staff-history', {
+//       title: 'History',
+//   });
+// });
 
 //Admin routes:
 
-app.get('/admin', (req, res) => {
-  res.render('admin/admin', {
-      title: 'Menu',
-  });
-});
+// app.get('/admin', (req, res) => {
+//   res.render('admin/admin', {
+//       title: 'Menu',
+//   });
+// });
 
 //Her starter admin products:
 

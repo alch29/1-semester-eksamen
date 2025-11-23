@@ -30,6 +30,12 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      // UUID Link
+      link_key: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       }
     });
   },

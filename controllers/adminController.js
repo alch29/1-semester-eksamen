@@ -1,4 +1,5 @@
 const { station, user, product, measurement } = require('../models');
+const { raw } = require('mysql2');
 
 // GET /admin/staff
 exports.getAdminStaff = async (req, res) => {
@@ -106,8 +107,6 @@ exports.postAdminUpdateProduct = async (req, res) => {
   }
 };
 
-const { raw } = require('mysql2');
-const { station, user } = require('../models');
 
 exports.getAdmin = (req, res) => {
   res.render('admin/admin', {

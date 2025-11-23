@@ -12,12 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       task.belongsTo(models.user, { foreignKey: 'user_id', as: 'user' });
       task.belongsTo(models.station, { foreignKey: 'stations_id', as: 'station' });
+      task.hasMany(models.task_product, { foreignKey: 'task_id', as: 'taskProducts' });
     }
   }
   task.init({
     completed_date: DataTypes.DATE,
     user_id: DataTypes.INTEGER,
-    stations_id: DataTypes.INTEGER
+    stations_id: DataTypes.INTEGER,
+    // UUID Link
+    link_key: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'task',

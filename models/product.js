@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       product.belongsTo(models.user, {foreignKey: 'user_id'});
       product.belongsTo(models.measurement, {foreignKey: 'measurement_id', as: 'measurement'});
+      product.hasMany(models.task_product, { foreignKey: 'product_id', as: 'taskProducts' });
     }
   }
   product.init({

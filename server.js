@@ -26,11 +26,11 @@ const routes = require('./routes'); // index.js inside routes folder
 app.use('/', routes);  // all admin and staff routes are mounted here
 
 
-app.get('/', (req, res) => {
-  res.render('home/index', {
-      title: 'Login',
-  });
-});
+// app.get('/', (req, res) => {
+//   res.render('home/index', {
+//       title: 'Login',
+//   });
+// });
 
 //Staff routes:
 

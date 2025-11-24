@@ -24,7 +24,7 @@ exports.postRegister = async (req, res) => {
     const { email, password, name } = req.body;
     
     //find staff:
-    const role = await role.findOne({
+    const staffRole = await role.findOne({
       where: { is_admin: false }
     });
     
@@ -39,7 +39,7 @@ exports.postRegister = async (req, res) => {
       email: email,
       password: hashedPassword,
       name: name,
-      role_id: role.id
+      role_id: staffRole.id
     });
     
     console.log('User created successfully as staff');

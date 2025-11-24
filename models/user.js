@@ -14,11 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       user.hasMany(models.station, { foreignKey: 'user_id' });
     }
   }
-  user.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role_id: DataTypes.INTEGER
+user.init({
+  name: DataTypes.STRING,
+  email: DataTypes.STRING,
+  password: DataTypes.STRING,
+  role_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  }
   }, {
     sequelize,
     modelName: 'user', 

@@ -1,8 +1,6 @@
 // controllers/staffController.js
-const { station } = require('../models');
-const { product } = require('../models');
-const { measurement } = require('../models');
-const { image } = require('../models');
+const crypto = require('crypto');
+const { station, product, measurement, image, task, task_product } = require('../models');
 
 exports.getStaffStations = async (req, res) => {
   try {
@@ -65,14 +63,44 @@ exports.getStaffTask = async (req, res) => {
 
 exports.finishStaffTask = async (req, res) => {
   try {
-    // Check if files were uploaded
+    const user_id = 1;
+    const { station_id, date, products } = req.body;
+
+    //tjekker om filer er blevet uploadet:
     if (!req.files || req.files.length === 0) {
       return res.status(400).send('No images uploaded');
     }
 
-    const user_id = 1;
+    //bruger crypto pakke fra node.js til at generere et UUID til link_key:
+    const linkKey = crypto.randomUUID();
 
-    // Save all uploaded images to database
+    //opretter ny task:
+    const newTask = await task.create({
+      user_id: user_id,
+      stations_id: station_id,
+      completed_date: date,
+      link_key: linkKey
+    });
+
+    console.log(`Task created with ID: ${newTask.id}`);
+
+    //gemmer produkter til task_produkt, hvis amount som bruger har skrevet ind er mere end 0:
+    if (products) {
+      const productEntries = Object.entries(products);
+      
+      for (const [product_id, amount] of productEntries) {
+        if (amount && parseInt(amount) > 0) {
+          await task_product.create({
+            task_id: newTask.id,
+            product_id: parseInt(product_id),
+            amount: parseInt(amount)
+          });
+        }
+      }
+      console.log('Products saved to task_product table');
+    }
+
+    //gemmer billeder i image tabellen:
     const savedImages = await Promise.all(
       req.files.map(file => 
         image.create({
@@ -80,19 +108,20 @@ exports.finishStaffTask = async (req, res) => {
           mimetype: file.mimetype,
           size: file.size,
           data: file.buffer,
-          user_id: user_id
+          user_id: user_id,
+          task_id: newTask.id
         })
       )
     );
 
     console.log(`Saved ${savedImages.length} images to database`);
 
-    // Redirect to staff stations page
+    //omdirigerer staff til staff-stations siden:
     res.redirect('/staff/stations');
 
   } catch (err) {
-    console.error('Error saving images:', err);
-    res.status(500).send('Error saving images');
+    console.error('Error saving task:', err);
+    res.status(500).send('Error saving task');
   }
 };
 

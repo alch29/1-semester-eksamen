@@ -1,7 +1,9 @@
-<form>   
+<form method="post" action="/">
     <h1 class="headline">Login</h1>
-    <input type="text" placeholder="Email">
-    <input type="text" placeholder="Password">
+    <input type="text" name="email" placeholder="Email">
+    <input type="text" name="password" placeholder="Password">
     <a class="paragraph">Forgot your password?</a>
-    <button class="button2">Login</button>
-</form>  
+    <button type="submit" class="button2">Login</button>
+</form>
+<p>Are you not registered yet?</p>
+<a href="/register" class="button2">Register new user</a>

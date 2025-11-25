@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       task.belongsTo(models.user, { foreignKey: 'user_id', as: 'user' });
       task.belongsTo(models.station, { foreignKey: 'stations_id', as: 'station' });
       task.hasMany(models.task_product, { foreignKey: 'task_id', as: 'taskProducts' });
+      task.hasMany(models.image, { foreignKey: 'task_id', as: 'images' });
     }
   }
   task.init({

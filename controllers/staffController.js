@@ -125,8 +125,80 @@ exports.finishStaffTask = async (req, res) => {
   }
 };
 
-exports.getStaffHistory = (req, res) => {
-  res.render('staff/staff-history', {
-      title: 'History',
+exports.getStaffHistory = async (req, res) => {
+  try {
+    const user_id = 1;
+
+    const userTasks = await task.findAll({
+      raw: true,
+      where: { user_id: user_id },
+      include: [
+        {
+          model: station,
+          as: 'station',
+          attributes: ['name', 'address']
+        }
+      ],
+      order: [['completed_date', 'DESC']]
+    });
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    //formater datoen for hver task
+    const formattedDate = userTasks.map(task => {
+      const date = new Date(task.completed_date);
+      const weekday = weekdays[date.getDay()];
+      const month = months[date.getMonth()];
+      const day = date.getDate();
+      const year = date.getFullYear();
+      
+      return {
+        ...task,
+        formattedDate: `${weekday}, ${month} ${day}, ${year}`
+      };
+    });
+
+    res.render('staff/staff-history', {
+      title: 'View history',
+      tasks: formattedDate
   });
+
+  } catch (err) {
+    console.error('Error fetching history:', err);
+    res.status(500).send('Error loading history');
+  };
 };
+
+exports.getStaffHistoryTask = async (req, res) => {
+  const taskId = parseInt(req.params.id);
+  const currentTask = await task.findByPk(taskId, { 
+    raw: true,
+    include: [
+      {
+        model: station,
+        as: 'station',
+        attributes: ['name', 'address']
+      },
+      {
+        model: task_product,
+        as: 'taskProducts',
+        include: [{
+          model: product,
+          as: 'product',
+          attributes: ['name']
+        }]
+      },
+      {
+        model: image,
+        as: 'images',
+        attributes: ['id', 'filename']
+      }
+    ]
+  });
+  
+  res.render('staff/staff-history-task', {
+    title: currentTask.id,
+    tasks: currentTask
+  })
+}

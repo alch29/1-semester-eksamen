@@ -13,6 +13,6 @@ router.get('/task/:id', staffController.getStaffTask);
 
 router.get('/history', staffController.getStaffHistory);
 
-router.get('/staff-history', staffController.getStaffHistory);
+router.get('/history/task/:id', staffController.getStaffHistoryTask);
 
 module.exports = router;

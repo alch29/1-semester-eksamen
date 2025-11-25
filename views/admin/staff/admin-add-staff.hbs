@@ -1,26 +1,63 @@
+<div class="headline headline-with-chevron">
+  <a href="/admin/staff">
+    <span class="double-chevron">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/></svg>
+    </span>
+  </a>
+  <span class="title">
+  {{title}}
+  </span>
+</div>
 <form method="POST" action="/admin/staff/save-staff">
+
+  {{#if user}}
+    <input type="hidden" name="id" value="{{user.id}}">
+  {{/if}}
+
   <div>
     <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" required>
+    <input type="text" id="firstName" name="firstName" required value="{{user.firstName}}">
   </div>
 
   <div>
     <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required>
+    <input type="text" id="lastName" name="lastName" required value="{{user.lastName}}">
   </div>
 
   <div>
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+    <input type="email" id="email" name="email" required value="{{user.email}}">
   </div>
 
-  <div style="margin-top: 20px;">
-    <button type="submit" name="action" value="saveChanges">
-      Save changes
-    </button>
+    {{#if stations}}
+    <p>Stations attached to this user:</p>
+    <div class="stations-box">
+        <ul>
+        {{#each stations}}
+            <li>{{this.name}} {{this.address}}</li>
+        {{/each}}
+        </ul>
+    </div>
+    {{else}}
+    <p>No stations attached to this user.</p>
+    {{/if}}
 
-    <button type="submit" name="action" value="addToStations">
-      Add to stations
-    </button>
+  <div>
+    <button type="submit" name="action" value="saveChanges">Save changes</button>
+    <a href="/admin/staff/admin-add-staff-stations/{{user.id}}">Add stations</a>
+
+
+    {{#if user}}
+      <form method="POST" action="/admin/staff/{{user.id}}/delete" style="display:inline;">
+        <button type="submit">Delete user</button>
+      </form>
+    {{/if}}
   </div>
+
+  {{#if successMessage}}
+    <p>{{successMessage}}</p>
+  {{/if}}
+
 </form>

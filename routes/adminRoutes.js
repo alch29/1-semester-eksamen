@@ -6,6 +6,12 @@ const adminController = require('../controllers/adminController');
 router.get('/staff', adminController.getAdminStaff);
 router.get('/staff/admin-add-staff', adminController.getAdminStaffAdd);
 router.post('/staff/save-staff', adminController.postAdminStaffAdd);
+router.get('/staff/:id/edit', adminController.getAdminStaffAdd);
+router.post('/staff/:id/delete', adminController.postAdminStaffDelete);
+router.get('/staff/admin-add-staff-stations/:id', adminController.getAdminStaffStations);
+router.post('/staff/admin-add-staff-stations/:id', adminController.postAdminStaffStations);
+
+
 
 router.get('/products', adminController.getAdminProducts);
 router.get('/products/partials/admin-add-products', adminController.getAdminAddProducts);

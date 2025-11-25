@@ -1,63 +1,202 @@
 const { station, user, product, measurement, role } = require('../models');
 const { raw } = require('mysql2');
+const { Op } = require('sequelize');
 
 // GET /admin/staff
 exports.getAdminStaff = async (req, res) => {
   try {
-    const staff = await user.findAll();
+    const staff = await user.findAll({ raw: true });
     res.render('admin/staff/admin-staff', {
-        title: 'staff',
-      staff: staff.map(stf => stf.toJSON())
+      title: 'staff',
+      staff
     });
   } catch (err) {
     console.error('Database error:', err);
     res.status(500).send('Database error');
   }
 };
-
 exports.getAdminStaffAdd = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    res.render('admin/staff/admin-add-staff', {
-      title: 'add new staff',
+    let staff = null;
+    let stationsList = [];
+
+    if (id) {
+      const foundUser = await user.findByPk(id, { raw: true });
+
+      if (foundUser) {
+        const [firstName, ...rest] = foundUser.name.split(" ");
+        const lastName = rest.join(" ");
+
+        staff = {
+          ...foundUser,
+          firstName,
+          lastName
+        };
+
+        stationsList = await station.findAll({
+          where: { user_id: id },
+          order: [['name', 'ASC']],
+          raw: true
+        });
+      }
+    }
+
+    res.render("admin/staff/admin-add-staff", {
+      title: "Manage Staff",
+      user: staff,
+      stations: stationsList
     });
+
   } catch (err) {
-    console.error('Database error:', err);
-    res.status(500).send('Database error');
+    console.error("Database error:", err);
+    res.status(500).send("Database error");
   }
 };
 
 exports.postAdminStaffAdd = async (req, res) => {
-  const { firstName, lastName, email, action } = req.body;
+  const { id, firstName, lastName, email, action } = req.body;
 
-  console.log("POST /admin/staff/save-staff called");
-  console.log("Form data:", { firstName, lastName, email, action });
-
-  try{
-
+  try {
     const fullName = `${firstName} ${lastName}`;
     const password = "password123";
-    const roleNum = await role.findOne({ where: { is_admin: false } });
-    console.log("Role found:", role);
+    const staffRole = await role.findOne({ where: { is_admin: false } });
 
-    await user.create({
-      name: fullName,
-      email: email,
-      password: password,
-      role_id: roleNum.id
-    });
+    let savedUser;
+    let successMessage;
 
-    if (action === "addToStations") {
-      return res.redirect("/admin/staff/admin-add-staff-stations");
+    if (id) {
+      const existingUser = await user.findByPk(id);
+      if (!existingUser) return res.status(404).send("User not found");
+
+      await existingUser.update({ name: fullName, email: email });
+      savedUser = existingUser;
+      successMessage = "User updated successfully!";
+
+    } else {
+      savedUser = await user.create({
+        name: fullName,
+        email: email,
+        password: password,
+        role_id: staffRole.id
+      });
+      successMessage = "User created successfully!";
     }
 
+    if (action === "addToStations") {
+      return res.redirect(`/admin/staff/${savedUser.id}/stations`);
+    }
 
-    res.render("editUser", { successMessage: "User created successfully!" });
+    const [first, ...rest] = savedUser.name.split(" ");
+    const last = rest.join(" ");
+
+    return res.render("admin/staff/admin-add-staff", {
+      title: "Add or Edit Staff",
+      user: {
+        id: savedUser.id,
+        firstName: first,
+        lastName: last,
+        email: savedUser.email
+      },
+      successMessage
+    });
 
   } catch (err) {
-    console.error('Database error', err);
+    console.error("Database error", err);
+    res.status(500).send("Database error");
+  }
+};
+
+exports.postAdminStaffDelete = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const existingUser = await user.findByPk(id);
+
+    if (!existingUser) {
+      return res.status(404).send("User not found");
+    }
+
+    await existingUser.destroy();
+
+    return res.redirect('/admin/staff');
+
+  } catch (err) {
+    console.error("Database error:", err);
+    return res.status(500).send("Database error");
+  }
+};
+
+exports.getAdminStaffStations = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const allStations = await station.findAll({
+      where: {
+        [Op.or]: [
+          { user_id: null },
+          { user_id: id }
+        ]
+      },
+      raw: true,
+      order: [['name', 'ASC']]
+    });
+    const userStations = await station.findAll({ where: { user_id: id }, raw: true });
+
+    const attachedStationIds = userStations.map(s => Number(s.id));
+
+    const stationsWithFlag = allStations.map(s => ({
+      ...s,
+      isAttached: attachedStationIds.includes(Number(s.id)) ? true : false
+    }));
+    console.log('Stations with isAttached flag:', stationsWithFlag);
+
+    res.render('admin/staff/admin-add-staff-stations', {
+      title: 'Manage User Stations',
+      userId: id,
+      stations: stationsWithFlag
+    });
+
+  } catch (err) {
+    console.error('Database error:', err);
     res.status(500).send('Database error');
   }
-}
+};
+
+
+exports.postAdminStaffStations = async (req, res) => {
+  const { id } = req.params;
+  let { stations: selectedStations } = req.body;
+
+  try {
+    selectedStations = selectedStations
+      ? Array.isArray(selectedStations)
+        ? selectedStations.map(Number)
+        : [Number(selectedStations)]
+      : [];
+
+    const userStations = await station.findAll({ where: { user_id: id }, raw: true });
+    const userStationIds = userStations.map(s => s.id);
+    const toDetach = userStationIds.filter(sid => !selectedStations.includes(sid));
+    const toAttach = selectedStations.filter(sid => !userStationIds.includes(sid));
+
+    if (toDetach.length > 0) {
+      await station.update({ user_id: null }, { where: { id: toDetach } });
+    }
+
+    if (toAttach.length > 0) {
+      await station.update({ user_id: id }, { where: { id: toAttach } });
+    }
+
+    res.redirect(`/admin/staff/admin-add-staff-stations/${id}`);
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+
 
 // GET /admin/products — list all products
 exports.getAdminProducts = async (req, res) => {

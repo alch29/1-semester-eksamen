@@ -3,8 +3,6 @@ const app = require("./app");
 const { engine } = require('express-handlebars');
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
-const db = require('./models');
-const { image, measurement, product, role, station, user } = db;
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -176,17 +174,17 @@ app.use('/', routes);  // all admin and staff routes are mounted here
 //   }
 // });
 
-app.get('/admin/add-staff', (req, res) => {
-  res.render('admin/staff/admin-add-staff', {
-      title: 'Add new staff',
-  });
-});
+// app.get('/admin/add-staff', (req, res) => {
+//   res.render('admin/staff/admin-add-staff', {
+//       title: 'Add new staff',
+//   });
+// });
 
-app.get('/admin/add-staff/stations', (req, res) => {
-  res.render('admin/staff/admin-add-staff-stations', {
-      title: 'Add new staff to stations',
-  });
-});
+// app.get('/admin/add-staff/stations', (req, res) => {
+//   res.render('admin/staff/admin-add-staff-stations', {
+//       title: 'Add new staff to stations',
+//   });
+// });
 
 app.get('/admin/staff-info', (req, res) => {
   res.render('admin/staff/admin-staff-info', {

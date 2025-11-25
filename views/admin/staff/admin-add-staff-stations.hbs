@@ -1,0 +1,15 @@
+<form method="POST" action="/admin/staff/admin-add-staff-stations/{{userId}}">
+  <h3>Manage Stations</h3>
+
+  {{#each stations}}
+    <div>
+      <input type="checkbox" name="stations" value="{{this.id}}"
+        {{#if (eq this.isAttached true)}}checked{{/if}}>
+      {{this.name}}
+    </div>
+  {{/each}}
+
+  <button type="submit">Save</button>
+</form>
+
+

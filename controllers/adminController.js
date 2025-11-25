@@ -1,4 +1,4 @@
-const { station, user, product, measurement } = require('../models');
+const { station, user, product, measurement, role } = require('../models');
 const { raw } = require('mysql2');
 
 // GET /admin/staff
@@ -14,6 +14,50 @@ exports.getAdminStaff = async (req, res) => {
     res.status(500).send('Database error');
   }
 };
+
+exports.getAdminStaffAdd = async (req, res) => {
+  try {
+    res.render('admin/staff/admin-add-staff', {
+      title: 'add new staff',
+    });
+  } catch (err) {
+    console.error('Database error:', err);
+    res.status(500).send('Database error');
+  }
+};
+
+exports.postAdminStaffAdd = async (req, res) => {
+  const { firstName, lastName, email, action } = req.body;
+
+  console.log("POST /admin/staff/save-staff called");
+  console.log("Form data:", { firstName, lastName, email, action });
+
+  try{
+
+    const fullName = `${firstName} ${lastName}`;
+    const password = "password123";
+    const roleNum = await role.findOne({ where: { is_admin: false } });
+    console.log("Role found:", role);
+
+    await user.create({
+      name: fullName,
+      email: email,
+      password: password,
+      role_id: roleNum.id
+    });
+
+    if (action === "addToStations") {
+      return res.redirect("/admin/staff/admin-add-staff-stations");
+    }
+
+
+    res.render("editUser", { successMessage: "User created successfully!" });
+
+  } catch (err) {
+    console.error('Database error', err);
+    res.status(500).send('Database error');
+  }
+}
 
 // GET /admin/products — list all products
 exports.getAdminProducts = async (req, res) => {
@@ -76,7 +120,7 @@ exports.getAdminEditProducts = async (req, res) => {
     const productId = req.params.id;
     const prd = await product.findByPk(productId);
 
-    console.log(`Fetched station ${productId}:`, prd.toJSON());
+    // console.log(`Fetched station ${productId}:`, prd.toJSON());
     res.render('admin/products/partials/admin-edit-products', {
       title: 'Station info',
       products: products.map(prd => prd.toJSON()),
@@ -145,7 +189,7 @@ exports.getStationInfo = async (req, res) => {
         raw: true,
         nest: true
     });
-    console.log(st);
+    // console.log(st);
     if (!st) {
       return res.status(404).send('Station not found');
     }

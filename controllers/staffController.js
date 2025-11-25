@@ -85,7 +85,7 @@ exports.finishStaffTask = async (req, res) => {
       )
     );
 
-    console.log(`Saved ${savedImages.length} images to database`);
+    // console.log(`Saved ${savedImages.length} images to database`);
 
     // Redirect to staff stations page
     res.redirect('/staff/stations');

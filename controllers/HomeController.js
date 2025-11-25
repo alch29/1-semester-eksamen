@@ -42,7 +42,7 @@ exports.postRegister = async (req, res) => {
       role_id: staffRole.id
     });
     
-    console.log('User created successfully as staff');
+    // console.log('User created successfully as staff');
     res.redirect('/'); //omdiriger til login-siden
     
   } catch (err) {
@@ -81,10 +81,10 @@ exports.postLogin = async (req, res) => {
     if (isMatch) {
       //Hvis kode er korrekt, tjekker om det er admin eller staff
       if (foundUser.role.is_admin === true) {
-        console.log('Admin login successful!');
+        // console.log('Admin login successful!');
         res.redirect('/admin/admin');
       } else {
-        console.log('Staff login successful!');
+        // console.log('Staff login successful!');
         res.redirect('/staff/stations');
       }
     } else {

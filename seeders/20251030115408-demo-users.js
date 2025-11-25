@@ -7,7 +7,7 @@ module.exports = {
     {
       name: 'Peter Parker',
       email:'spidey@man.com',
-      password: 'password123',
+      password: '$2b$10$vHXTtgdx2t/oteID4bGKE.1aje460bhwmRsxf5taU02TyC8nIb3p2', // hashed version of 'password123'
       role_id: 1,
       createdAt: new Date(),
       updatedAt: new Date(),

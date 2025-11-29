@@ -1,1 +1,26 @@
-<h1>{{station.name}}</h1>
+<div class="gap"> 
+    <div>
+        <div class="header">
+            <a href="/staff/history"><i></i>Go back</a>
+            <h1 class="headline">{{task.station.name}}</h1>
+        </div>
+        <div class="header">
+            <p class="subHeadline">{{task.station.address}}</p>
+            <p class="subHeadline">{{date}}</p>
+        </div>
+    </div>
+
+    <div class="taskDataContainer">
+        <h2 class="subHeadline">Images uploaded</h2>
+        {{#each task.images}}
+            <img src="{{this.dataUrl}}" alt="{{this.filename}}">
+        {{/each}}
+    </div>
+
+    <div class="taskDataContainer">
+        <h2 class="subHeadline">Products uploaded</h2>
+        {{#each task.taskProducts}}
+            <p class="paragraph">{{this.product.name}} - Amount: {{this.amount}} {{this.product.measurement.measurement_symbol}}</p>
+        {{/each}}
+    </div>
+</div>  

@@ -24,12 +24,12 @@ exports.getStaffTask = async (req, res) => {
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     
-    let date = new Date();
-    let day = date.getDate();
-    let month = months[date.getMonth()];
-    let year = date.getFullYear();
+    const date = new Date();
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
 
-    let currentDate = `${month} ${day}, ${year}`;
+    const currentDate = `${month} ${day}, ${year}`;
 
     if (!currentStation) {
       return res.status(404).render('error', {
@@ -143,19 +143,17 @@ exports.getStaffHistory = async (req, res) => {
     });
 
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     //formater datoen for hver task
     const formattedDate = userTasks.map(task => {
       const date = new Date(task.completed_date);
-      const weekday = weekdays[date.getDay()];
       const month = months[date.getMonth()];
       const day = date.getDate();
       const year = date.getFullYear();
       
       return {
         ...task,
-        formattedDate: `${weekday}, ${month} ${day}, ${year}`
+        formattedDate: `${month} ${day}, ${year}`
       };
     });
 
@@ -172,8 +170,9 @@ exports.getStaffHistory = async (req, res) => {
 
 exports.getStaffHistoryTask = async (req, res) => {
   const taskId = parseInt(req.params.id);
+
   const currentTask = await task.findByPk(taskId, { 
-    raw: true,
+    // raw: true,
     include: [
       {
         model: station,
@@ -186,19 +185,47 @@ exports.getStaffHistoryTask = async (req, res) => {
         include: [{
           model: product,
           as: 'product',
-          attributes: ['name']
+          attributes: ['name'],
+          include: [{
+            model: measurement,
+            as: 'measurement',
+            attributes: ['measurement_symbol']
+          }]
         }]
       },
       {
         model: image,
         as: 'images',
-        attributes: ['id', 'filename']
+        attributes: ['id', 'filename', 'mimetype', 'data']
       }
     ]
   });
-  
+
+
+  const taskData = currentTask.get({ plain: true });
+  //konvertere data til plain object, som skulle gøre det nemmere for handlebars at arbejde med relateret/nested data. i modsætning til når man bruger raw.
+
+  if (taskData.images) {
+    taskData.images = taskData.images.map(img => ({
+      ...img,
+      dataUrl: `data:${img.mimetype};base64,${img.data.toString('base64')}`
+    }));
+  }
+  //base64 konverterer binær data til string, så dataen kan hentes og bruges over text-baseret systemer.
+
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  //formater datoen for hver task
+  const date = new Date(taskData.completed_date);
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  const currentDate = `${month} ${day}, ${year}`;
+    
   res.render('staff/staff-history-task', {
-    title: currentTask.id,
-    tasks: currentTask
+    title: `Task ${currentTask.id}`,
+    task: taskData,
+    date: currentDate,
   })
 }

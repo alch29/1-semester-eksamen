@@ -2,6 +2,11 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
+const { isAuthenticated, isAdmin } = require('../middleware/auth'); 
+
+// ALLE admin routes skal bruge både login OG admin-tjek
+router.use(isAuthenticated); 
+router.use(isAdmin);         
 
 router.get('/staff', adminController.getAdminStaff);
 

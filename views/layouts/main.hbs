@@ -7,6 +7,19 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+  {{!-- vis bruger info og logout hvis logget ind --}}
+  {{#if user}}
+    <div class="user-info">
+      Logget ind som: {{user.name}} ({{user.email}})
+      {{#if user.is_admin}}
+        <span class="badge">Admin</span>
+      {{/if}}
+      <form method="POST" action="/logout" style="display: inline;">
+        <button type="submit">Log ud</button>
+      </form>
+    </div>
+  {{/if}}
+
   {{{body}}}
 </body>
 <script src="/js/task.js"></script>

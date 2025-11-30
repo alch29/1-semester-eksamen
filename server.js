@@ -1,11 +1,17 @@
 const express = require('express');
 const app = require("./app");
+
+// Load environment variables from .env file and set up session management
+require('dotenv').config();
+const session = require('express-session');
+
 const { engine } = require('express-handlebars');
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 const db = require('./models');
 const { image, measurement, product, role, station, user } = db;
 const path = require('path');
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,6 +31,27 @@ app.set('views', './views/');
 const routes = require('./routes'); // index.js inside routes folder
 app.use('/', routes);  // all admin and staff routes are mounted here
 
+// TEST SESSION MIDDLEWARE
+app.use(session({
+  secret: process.env.SESSION_SECRET, // replace with a strong secret in production
+  resave: false, 
+  saveUninitialized: false, 
+  cookie: { 
+    secure: process.env.SECURE_COOKIE, // set to true if using HTTPS
+    httpOnly: true, 
+    sameSite: 'lax', 
+    maxAge: 1000 * 60 * 60 // 1 hour
+  }, 
+
+}));
+app.use((req, res, next) => {
+  if (!req.session.views) {
+    req.session.views = 0;
+  }
+  req.session.views++;
+  console.log(`Number of views this session: ${req.session.views}`);
+  next();
+});
 
 // app.get('/', (req, res) => {
 //   res.render('home/index', {

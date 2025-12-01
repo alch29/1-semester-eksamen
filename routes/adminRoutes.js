@@ -2,6 +2,11 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
+const { isAuthenticated, isAdmin } = require('../middleware/auth'); 
+
+// ALLE admin routes skal bruge både login OG admin-tjek
+router.use(isAuthenticated); 
+router.use(isAdmin);         
 
 router.get('/staff', adminController.getAdminStaff);
 
@@ -11,7 +16,7 @@ router.post('/products', adminController.postAdminAddProduct);
 router.get('/products/partials/admin-edit-products/:id', adminController.getAdminEditProducts);
 router.post('/products/:id', adminController.postAdminUpdateProduct);
 
-router.get('/admin', adminController.getAdmin);
+router.get('/', adminController.getAdmin);
 router.get('/stations', adminController.getStations);
 router.get('/stations/info/:id', adminController.getStationInfo);
 router.get('/stations/manage', adminController.getStationManage);

@@ -3,6 +3,10 @@ const express = require('express');
 const router = express.Router();
 const staffController = require('../controllers/staffController');
 const upload = require('../multer');
+const { isAuthenticated } = require('../middleware/auth'); 
+
+// alle staff routes kræver login
+router.use(isAuthenticated);
 
 // Staff stations route
 router.get('/stations', staffController.getStaffStations);

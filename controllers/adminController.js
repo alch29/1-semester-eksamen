@@ -7,7 +7,7 @@ exports.getAdminStaff = async (req, res) => {
     const staff = await user.findAll();
     res.render('admin/staff/admin-staff', {
         title: 'staff',
-      staff: staff.map(stf => stf.toJSON())
+        staff: staff.map(stf => stf.toJSON())
     });
   } catch (err) {
     console.error('Database error:', err);
@@ -21,7 +21,7 @@ exports.getAdminProducts = async (req, res) => {
     const products = await product.findAll();
     res.render('admin/products/admin-products', {
         title: 'Products',
-      products: products.map(prd => prd.toJSON())
+        products: products.map(prd => prd.toJSON())
     });
   } catch (err) {
     console.error('Database error:', err);
@@ -72,8 +72,8 @@ exports.postAdminAddProduct = async (req, res) => {
 exports.getAdminEditProducts = async (req, res) => {
   try {
     const measurements = await measurement.findAll();
-    const products = await product.findAll();
-    const productId = req.params.id;
+    const products = await product.findAll(); // Get from models
+    const productId = req.params.id;  // Get from url
     const prd = await product.findByPk(productId);
 
     console.log(`Fetched station ${productId}:`, prd.toJSON());

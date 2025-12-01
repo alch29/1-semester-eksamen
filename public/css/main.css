@@ -426,3 +426,17 @@ body {
   flex-direction: column;
   gap: 20px;
 }
+
+.taskDataContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid 1px #BFBFBF;
+  padding: 14px;
+  border-radius: var(--primary-border-r);
+}
+
+.taskDataContainer img {
+  width: 100%;
+  border-radius: var(--primary-border-r);
+}

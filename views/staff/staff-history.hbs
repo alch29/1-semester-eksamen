@@ -1,21 +1,18 @@
 <div>
     <div class="header">
-        <i></i>
-        <p class="heading">View history</p>
+        <a href="/staff/stations"><i></i>Go back</a>
+        <p class="heading">History</p>
     </div>
 </div>
 <div>
     <input type="search" placeholder="Search...">
 </div>
 <div>
-    {{!-- lav for loop --}}
-    <a>
-        <div class="stationCard box">
-            <img class="stationPlaceholderImg">
-            <div>
-                <p class="subHeadline">{{this.adress}}</p>
-                <p class="paragraph"></p>
-            </div>
-        </div>
+    {{#each tasks}}
+    <a href="/staff/history/task/{{this.id}}">
+        <h2 class="subHeadline">{{this.[station.name]}}</h2>
+        <p class="paragraph">{{this.[station.address]}}</p>
+        <p class="paragraph">{{this.formattedDate}}</p>
     </a>
+    {{/each}}
 </div>

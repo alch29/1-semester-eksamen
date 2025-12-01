@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     mimetype: DataTypes.STRING,
     size: DataTypes.INTEGER,
     data: DataTypes.BLOB('long'),
-    user_id: DataTypes.INTEGER
+    user_id: DataTypes.INTEGER,
+    task_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'image',

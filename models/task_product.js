@@ -24,6 +24,10 @@ task_product.init({
     type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false
+  },
+  amount: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 }, {
   sequelize,

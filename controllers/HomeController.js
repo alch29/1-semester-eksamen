@@ -64,7 +64,7 @@ exports.postRegister = async (req, res) => {
       role_id: staffRole.id
     });
 
-    // Log automatisk ind efter registrering
+    // Log automatisk ind efter registrering (laver en session)
     req.session.user = {
       id: newUser.id,
       email: newUser.email,

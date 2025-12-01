@@ -4,7 +4,6 @@ const router = express.Router();
 const staffController = require('../controllers/staffController');
 const upload = require('../multer');
 
-// Staff stations route
 router.get('/stations', staffController.getStaffStations);
 
 router.post('/stations', upload.array('image', 60), staffController.finishStaffTask);

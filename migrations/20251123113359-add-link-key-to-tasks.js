@@ -1,15 +1,17 @@
-'use strict';
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.addColumn('tasks', 'link_key', {
-      type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
+  async up(queryInterface, Sequelize) {
+    // Only add column if not present
+    return queryInterface.describeTable('tasks').then(table => {
+      if (!table.link_key) {
+        return queryInterface.addColumn('tasks', 'link_key', {
+          type: Sequelize.STRING,
+          allowNull: false,
+        });
+      }
     });
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.removeColumn('tasks', 'link_key');
+  async down(queryInterface, Sequelize) {
+    return queryInterface.removeColumn('tasks', 'link_key');
   }
 };

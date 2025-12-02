@@ -91,16 +91,7 @@ exports.postAdminStaffAdd = async (req, res) => {
     const [first, ...rest] = savedUser.name.split(" ");
     const last = rest.join(" ");
 
-    return res.render("admin/staff/admin-add-staff", {
-      title: "Add or Edit Staff",
-      user: {
-        id: savedUser.id,
-        firstName: first,
-        lastName: last,
-        email: savedUser.email
-      },
-      successMessage
-    });
+    return res.redirect(`/admin/staff/${savedUser.id}/edit`);
 
   } catch (err) {
     console.error("Database error", err);
@@ -189,7 +180,7 @@ exports.postAdminStaffStations = async (req, res) => {
       await station.update({ user_id: id }, { where: { id: toAttach } });
     }
 
-    res.redirect(`/admin/staff/admin-add-staff-stations/${id}`);
+    res.redirect(`/admin/staff/${id}/edit`);
   } catch (err) {
     console.error('Database error:', err);
     res.status(500).send('Database error');

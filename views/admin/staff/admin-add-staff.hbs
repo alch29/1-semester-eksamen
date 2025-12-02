@@ -10,54 +10,56 @@
   {{title}}
   </span>
 </div>
-<form method="POST" action="/admin/staff/save-staff">
+<form id="saveStaffForm" method="POST" action="/admin/staff/save-staff">
 
   {{#if user}}
     <input type="hidden" name="id" value="{{user.id}}">
   {{/if}}
 
-  <div>
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" required value="{{user.firstName}}">
+  <div class="manageStaffInputContainer">
+    <label for="firstName">First Name</label>
+    <input class="activeInputField" type="text" id="firstName" name="firstName" placeholder="First Name" required value="{{user.firstName}}">
   </div>
 
-  <div>
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required value="{{user.lastName}}">
+  <div class="manageStaffInputContainer">
+    <label for="lastName">Last Name</label>
+    <input class="activeInputField" type="text" id="lastName" name="lastName" placeholder="Last Name" required value="{{user.lastName}}">
   </div>
 
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required value="{{user.email}}">
+  <div class="manageStaffInputContainer">
+    <label for="email">Email Address</label>
+    <input class="activeInputField" type="email" id="email" name="email" placeholder="Email Address" required value="{{user.email}}">
   </div>
 
     {{#if stations}}
-    <p>Stations attached to this user:</p>
+    <p class="title stationSubTitle">Stations</p>
     <div class="stations-box">
         <ul>
         {{#each stations}}
-            <li>{{this.name}} {{this.address}}</li>
+            <li>
+              <span>{{this.name}}</span>
+              <span>{{this.address}}</span>
+            </li>
         {{/each}}
         </ul>
     </div>
-    {{else}}
-    <p>No stations attached to this user.</p>
     {{/if}}
 
-  <div>
-    <button type="submit" name="action" value="saveChanges">Save changes</button>
-    <a href="/admin/staff/admin-add-staff-stations/{{user.id}}">Add stations</a>
 
-
-    {{#if user}}
-      <form method="POST" action="/admin/staff/{{user.id}}/delete" style="display:inline;">
-        <button type="submit">Delete user</button>
-      </form>
-    {{/if}}
-  </div>
 
   {{#if successMessage}}
     <p>{{successMessage}}</p>
   {{/if}}
 
 </form>
+
+<div>
+  {{#if user}}
+    <a class="button1" href="/admin/staff/admin-add-staff-stations/{{user.id}}">Manage stations</a>
+    <form id="deleteStaffForm" method="POST" action="/admin/staff/{{user.id}}/delete" style="display:inline;">
+    </form>
+  {{/if}}
+</div>
+<button class="button2 saveStaffMargin" form="saveStaffForm" type="submit" name="action" value="saveChanges">Save changes</button>
+<button class="deleteStaffButton" form="deleteStaffForm" type="submit">Delete staff</button>
+

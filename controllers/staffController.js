@@ -162,7 +162,7 @@ exports.getStaffHistory = async (req, res) => {
     });
 
     res.render('staff/staff-history', {
-      title: 'View history',
+      title: 'History',
       tasks: formattedDate
   });
 

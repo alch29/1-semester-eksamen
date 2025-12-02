@@ -79,6 +79,7 @@ body {
   font-size: var(--subheading-size);
   box-sizing: border-box;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .button2{
@@ -94,6 +95,7 @@ body {
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .devareStaff{
@@ -458,4 +460,8 @@ body {
   text-decoration: none;
   color: var(--primary-text);
   box-shadow: var(--primary-box-shadow);
+}
+
+.header {
+  
 }

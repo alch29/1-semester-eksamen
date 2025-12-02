@@ -252,6 +252,12 @@ body {
   padding: 10px;
 }
 
+.accordionProduct div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .temp-products-container {
   display: flex;
   flex-direction: row; 
@@ -439,4 +445,17 @@ body {
 .taskDataContainer img {
   width: 100%;
   border-radius: var(--primary-border-r);
+}
+
+.goToBtn {
+  border-radius: var(--primary-border-r);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 1px var(--tetriary-bg);
+  background-color: var(--secondary-bg);
+  padding: 0 14px 0 14px;
+  text-decoration: none;
+  color: var(--primary-text);
+  box-shadow: var(--primary-box-shadow);
 }

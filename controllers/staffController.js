@@ -1,10 +1,14 @@
 // controllers/staffController.js
 const crypto = require('crypto');
-const { station, product, measurement, image, task, task_product } = require('../models');
+const { station, product, measurement, image, task, task_product, user } = require('../models');
 
 exports.getStaffStations = async (req, res) => {
   try {
-    const stations = await station.findAll({ raw: true });
+    const userId = req.session.user.id;
+    const stations = await station.findAll({ 
+      raw: true,
+      where: { user_id: userId }
+    });
 
     res.render('staff/staff-stations', {
       title: 'Your stations',
@@ -63,7 +67,7 @@ exports.getStaffTask = async (req, res) => {
 
 exports.finishStaffTask = async (req, res) => {
   try {
-    const user_id = 1;
+    const userId = req.session.user.id;
     const { station_id, date, products } = req.body;
 
     //tjekker om filer er blevet uploadet:
@@ -76,7 +80,7 @@ exports.finishStaffTask = async (req, res) => {
 
     //opretter ny task:
     const newTask = await task.create({
-      user_id: user_id,
+      user_id: userId,
       stations_id: station_id,
       completed_date: date,
       link_key: linkKey
@@ -108,7 +112,7 @@ exports.finishStaffTask = async (req, res) => {
           mimetype: file.mimetype,
           size: file.size,
           data: file.buffer,
-          user_id: user_id,
+          user_id: userId,
           task_id: newTask.id
         })
       )
@@ -127,11 +131,11 @@ exports.finishStaffTask = async (req, res) => {
 
 exports.getStaffHistory = async (req, res) => {
   try {
-    const user_id = 1;
+    const userId = req.session.user.id;
 
     const userTasks = await task.findAll({
       raw: true,
-      where: { user_id: user_id },
+      where: { user_id: userId },
       include: [
         {
           model: station,

@@ -61,5 +61,6 @@
   {{/if}}
 </div>
 <button class="button2 saveStaffMargin" form="saveStaffForm" type="submit" name="action" value="saveChanges">Save changes</button>
-<button class="deleteStaffButton" form="deleteStaffForm" type="submit">Delete staff</button>
-
+{{#if user}}
+  <button class="deleteStaffButton" form="deleteStaffForm" type="submit">Delete staff</button>
+{{/if}}

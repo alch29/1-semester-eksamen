@@ -191,6 +191,8 @@ body {
   gap: 8px;
   padding: 6px 10px;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 #cleanForecourt{
@@ -211,7 +213,7 @@ body {
 
 .centerText{
   padding-left: 12px;
-  padding-top: 4px;
+  padding-top: 6px;
 }
 
 .accordionContent {
@@ -497,3 +499,69 @@ body {
   cursor: pointer;
   text-decoration: none;;
 }
+
+.stationFlexRow{
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.stationCheckboxWrapper {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* cleaning of forecourt checkbox animations */
+.courtCheckboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.courtCheckboxWrapper {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.courtCheckboxWrapper input[type="checkbox"] {
+  transform-origin: center;
+  transition: transform 120ms ease;
+}
+
+.courtCheckboxWrapper input[type="checkbox"]:checked {
+  transform: scale(1.16);
+}
+
+
+/* station checkbox list animations */
+.stationFlexRow input[type="checkbox"] {
+  transform-origin: center;
+  transition: transform 120ms ease;
+}
+
+.stationFlexRow input[type="checkbox"]:checked {
+  transform: scale(1.25);
+}
+
+.stationFlexRow input[type="checkbox"]:active {
+  transform: scale(0.9);
+}
+
+.stationCheckboxWrapper {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.stationCheckboxWrapper input[type="checkbox"]:checked ~ .stationCard {
+  animation: pulseSelect 180ms ease-out;
+  box-shadow: 0 0 0 2px var(--primary-color, var(--primary-color));
+}
+
+@keyframes pulseSelect {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+

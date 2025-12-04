@@ -157,7 +157,7 @@ exports.getStaffHistory = async (req, res) => {
       
       return {
         ...task,
-        formattedDate: `${month} ${day}, ${year}`
+        formattedDate: `${day} ${month}, ${year}`
       };
     });
 
@@ -225,7 +225,7 @@ exports.getStaffHistoryTask = async (req, res) => {
   const day = date.getDate();
   const year = date.getFullYear();
 
-  const currentDate = `${month} ${day}, ${year}`;
+  const currentDate = `${day} ${month}, ${year}`;
     
   res.render('staff/staff-history-task', {
     title: `Task ${currentTask.id}`,

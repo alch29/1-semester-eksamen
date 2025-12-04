@@ -98,6 +98,22 @@ body {
   cursor: pointer;
 }
 
+.logOutBtn {
+  border: 0;
+  width: var(--button-width);
+  height: var(--button-height);
+  padding: var(--button-padding);
+  background-color: var(--tetriary-color);
+  border-radius: var(--primary-border-r);
+  box-shadow: var(--primary-box-shadow);
+  color: var(--primary-bg);
+  font-family: var(--subheading);
+  font-weight: var(--subheading-weight);
+  font-size: var(--subheading-size);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
 .devareStaff{
   color: var(--tetriary-color);
   text-decoration: underline;
@@ -463,5 +479,16 @@ body {
 }
 
 .header {
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.activeInputField {
+  width: 100%;
+  border: solid 1px var(--tetriary-bg);
+  background-color: var(--primary-bg);
+  border-radius: var(--primary-border-r);
+  padding: 8px;
 }

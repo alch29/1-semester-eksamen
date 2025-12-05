@@ -141,7 +141,6 @@ exports.getAdminStaffStations = async (req, res) => {
       ...s,
       isAttached: attachedStationIds.includes(Number(s.id)) ? true : false
     }));
-    console.log('Stations with isAttached flag:', stationsWithFlag);
 
     res.render('admin/staff/admin-add-staff-stations', {
       title: 'Manage User Stations',

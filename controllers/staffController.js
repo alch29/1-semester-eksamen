@@ -1,6 +1,7 @@
 // controllers/staffController.js
 const crypto = require('crypto');
 const { station, product, measurement, image, task, task_product, user } = require('../models');
+const { MailerSend, EmailParams, Sender, Recipient } = require("mailersend");
 
 exports.getStaffStations = async (req, res) => {
   try {
@@ -120,6 +121,45 @@ exports.finishStaffTask = async (req, res) => {
 
     console.log(`Saved ${savedImages.length} images to database`);
 
+
+  //________ Til at sende emails med mailersend:________
+
+    // Step 4: Get station info for email
+    const stationInfo = await station.findByPk(station_id);
+
+    // Step 5: Send email with MailerSend
+    const mailerSend = new MailerSend({
+      apiKey: "mlsn.5e2bd050ae2234e4d0675e6c59e6f567cff8f7fed4249e22b84145858a19aef8", //API token fra mailersend
+    });
+
+    const sentFrom = new Sender("noreply@test-51ndgwvk37dlzqx8.mlsender.net", "Carwash Cleaning");
+
+    const recipients = [
+      new Recipient(stationInfo.email, stationInfo.name)
+    ];
+
+    const htmlContent = `
+      <h2>New task has been completed!</h2>
+      <p><strong>Date of completion:</strong> ${date}</p>
+      <p><a href="http://localhost:3000/task/details/${linkKey}"><strong>Click here</strong></a> to view task details.</p>
+      <br>
+      <p>Regards,</p>
+      <p>Carwash cleaning team, powered by Group 4</p>
+      `;
+
+    const emailParams = new EmailParams()
+      .setFrom(sentFrom)
+      .setTo(recipients)
+      .setReplyTo(sentFrom)
+      .setSubject(`New task completed at ${stationInfo.name}`)
+      .setHtml(htmlContent)
+      .setText(`New task completed at ${stationInfo.name}.`);
+
+    await mailerSend.email.send(emailParams);
+    console.log("Email sent successfully!");
+
+    //________________
+
     //omdirigerer staff til staff-stations siden:
     res.redirect('/staff/stations');
 
@@ -233,3 +273,67 @@ exports.getStaffHistoryTask = async (req, res) => {
     date: currentDate,
   })
 }
+
+//Til public route hvor stationsejer kan se task details:
+exports.viewTaskByLink = async (req, res) => {
+  try {
+    const linkKey = req.params.linkKey;
+
+    //Find task baseret på UUID:
+    const currentTask = await task.findOne({
+      where: { link_key: linkKey },
+      include: [
+        {
+          model: station,
+          as: 'station',
+          attributes: ['name', 'address']
+        },
+        {
+          model: task_product,
+          as: 'taskProducts',
+          include: [{
+            model: product,
+            as: 'product',
+            attributes: ['name'],
+            include: [{
+              model: measurement,
+              as: 'measurement',
+              attributes: ['measurement_symbol']
+            }]
+          }]
+        },
+        {
+          model: image,
+          as: 'images',
+          attributes: ['id', 'filename', 'mimetype', 'data']
+        }
+      ]
+    });
+
+    if (!currentTask) {
+      return res.status(404).render('error', {
+        message: 'Task not found or link has expired'
+      });
+    }
+
+    const taskData = currentTask.get({ plain: true });
+
+    // Convert images to base64
+    if (taskData.images) {
+      taskData.images = taskData.images.map(img => ({
+        ...img,
+        dataUrl: `data:${img.mimetype};base64,${img.data.toString('base64')}`
+      }));
+    }
+
+    //vis en version af task view (uden navigation til andre sider):
+    res.render('public/task-details', {
+      title: `Task ${currentTask.id}`,
+      task: taskData,
+    });
+
+  } catch (err) {
+    console.error('Error fetching task by link:', err);
+    res.status(500).send('Error loading task');
+  }
+};

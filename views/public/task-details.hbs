@@ -1,0 +1,16 @@
+<div>
+  <h1>{{task.station.name}}</h1>
+  <p>{{task.station.address}}</p>
+
+  <h2>Products used:</h2>
+  {{#each task.taskProducts}}
+    <p>{{this.product.name}} - {{this.amount}} {{this.product.measurement.measurement_symbol}}</p>
+  {{/each}}
+
+  <h2>Images:</h2>
+  <div class="imageContainer">
+    {{#each task.images}}
+      <img src="{{this.dataUrl}}" alt="{{this.filename}}">
+    {{/each}}
+  </div>
+</div>

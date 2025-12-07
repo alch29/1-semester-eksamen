@@ -129,7 +129,7 @@ exports.finishStaffTask = async (req, res) => {
 
     // Step 5: Send email with MailerSend
     const mailerSend = new MailerSend({
-      apiKey: "mlsn.5e2bd050ae2234e4d0675e6c59e6f567cff8f7fed4249e22b84145858a19aef8", //API token fra mailersend
+      apiKey: "", //API token fra mailersend
     });
 
     const sentFrom = new Sender("noreply@test-51ndgwvk37dlzqx8.mlsender.net", "Carwash Cleaning");

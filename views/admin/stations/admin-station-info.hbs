@@ -22,10 +22,17 @@
   <div>Mail: {{station.email}}</div>
 </div>
 <br>
-<label class="topBotBorderBox checkboxCourt courtCheckboxWrapper">
-  <input type="checkbox" id="cleanForecourt" value="cleanForecourt">
-  <span>Clean forecourt</span>
-</label>
+<a href="/admin/stations/{{station.id}}/update-cleaning" class="checkbox-link-forecourt">
+  <div class="topBotBorderBox checkboxCourt courtCheckboxWrapper">
+    <input 
+      type="checkbox"
+      name="cleanForecourt"
+      {{#if station.cleaning_of_forecourt}}checked{{/if}}
+    >
+    <span>Clean forecourt</span>
+  </div>
+</a>
+
 <br>
 <div class="headline textAlignCenter">Staff member</div>
 <br>
@@ -38,4 +45,5 @@
 <a href="/admin/stations/manage?stationId={{station.id}}&userId={{station.user.id}}" class="button1">
   Manage staff
 </a>
+
 

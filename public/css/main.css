@@ -514,28 +514,6 @@ body {
   -webkit-touch-callout: none;
 }
 
-/* cleaning of forecourt checkbox animations */
-.courtCheckboxWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.courtCheckboxWrapper {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.courtCheckboxWrapper input[type="checkbox"] {
-  transform-origin: center;
-  transition: transform 120ms ease;
-}
-
-.courtCheckboxWrapper input[type="checkbox"]:checked {
-  transform: scale(1.16);
-}
-
-
 /* station checkbox list animations */
 .stationFlexRow input[type="checkbox"] {
   transform-origin: center;
@@ -565,3 +543,15 @@ body {
   100% { transform: scale(1); }
 }
 
+.checkbox-link-forecourt {
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.checkboxCourt input[type="checkbox"] {
+  pointer-events: none;
+  transform: scale(1.45);
+  cursor: pointer;
+}

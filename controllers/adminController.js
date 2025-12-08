@@ -334,6 +334,25 @@ exports.getStationInfo = async (req, res) => {
   }
 };
 
+exports.updateCleaningOfForecourt = async (req, res) => {
+  try {
+    const { stationId } = req.params;
+
+    const current = await station.findByPk(stationId);
+    const newValue = current.cleaning_of_forecourt ? 0 : 1;
+
+    await station.update(
+      { cleaning_of_forecourt: newValue },
+      { where: { id: stationId } }
+    );
+
+    res.redirect(`/admin/stations/info/${stationId}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
+  }
+};
+
 // GET /admin/stations/manage — manage station staff
 exports.getStationManage = async (req, res) => {
   try {
@@ -342,6 +361,7 @@ exports.getStationManage = async (req, res) => {
 
     const users = await user.findAll({
       attributes: ['id', 'name', 'email'],
+      where: { role_id: 2 },
       raw: true
     });
 

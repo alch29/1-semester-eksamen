@@ -32,6 +32,8 @@
 body {
   font-family: sans-serif;
   margin: 2rem;
+  max-width: 375px; 
+  /* Må jeg det der ^ */
 }
 
 .headline{
@@ -60,8 +62,15 @@ body {
   box-shadow: var(--primary-box-shadow);
 }
 
+.button1Container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .button1{
   display: flex;
+  width: 100%;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -145,7 +154,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 38%;
+  height: 43%;
   background-color: rgba(255, 255, 255, 0.7);
   display: flex;
   flex-direction: row;
@@ -206,7 +215,7 @@ body {
   padding-right: 12px;
 }
 .lowLineHeight{
-  line-height: 0.8;
+  line-height: 1;
 }
 
 .centerText{
@@ -267,18 +276,38 @@ body {
   width: 100%;
   margin-bottom: 1rem;
   padding-bottom: 4px;
-  border-bottom: #EBEBEB 1px solid;
+  border-bottom: #202020 1px solid;
 }
 
 .inputProductName{
-  width: 100%;
+  width: 96%;
   height: 2rem;
   padding: 4px;
   border-radius: 4px;
 }
 
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* black with 50% opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  text-decoration: none; /* removes underline */
+  color: inherit; /* prevents link color */
+}
+
 .modal-container {
-  width: 320px;
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  width: auto; /* or set a specific width like 500px */
+  max-width: 95%; /* prevents overflow on small screens */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -287,6 +316,9 @@ body {
   border: 1px solid var(--tetriary-bg);
   border-radius: 4px;
   box-shadow: var(--primary-box-shadow);
+  background-color: var(--primary-bg);
+  color: initial; /* resets text color to default */
+  z-index: 1001; /* ensures it's above the backdrop */
 }
 
 .modal-chooseUnit {

@@ -16,8 +16,6 @@ router.post('/staff/:id/delete', adminController.postAdminStaffDelete);
 router.get('/staff/admin-add-staff-stations/:id', adminController.getAdminStaffStations);
 router.post('/staff/admin-add-staff-stations/:id', adminController.postAdminStaffStations);
 
-
-
 router.get('/products', adminController.getAdminProducts);
 router.get('/products/partials/admin-add-products', adminController.getAdminAddProducts);
 router.post('/products', adminController.postAdminAddProduct);

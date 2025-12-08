@@ -3,53 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <headline class="headerText">Partial for admin-add-products</headline>
+<div class="headline headline-with-chevron">
+  <a href="/admin/products" > 
+    <span class="double-chevron">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/></svg>
+    </span>
+  </a>
+  <span class="title">
+  {{title}}
+  </span>
+</div>
 </head>
 <body>
-        <a href="/admin/products/" > <p><<</p>  </a>
   <div>
-    <a href="#" class="button1">
-      <div class="buttonContent">
-        <div> + </div>
-        <div>Add New Product</div>
+      <div class="button1Container">
+          <a href="#" class="button1">
+            <div class="buttonContent">
+              <div>+ Add New Product</div>
+            </div>
+          </a>
       </div>
-    </a>
 
     <div>
       {{#each products}}
     <div class="temp-products-container">
       <div class="temp-products">
         {{this.name}}
-        <a href="#">Edit</a>
+        <a href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </a>
       </div>
     </div>
       {{/each}}
     </div>
   </div>
-
-  <div class="modal-container">
-    <div>
-      <h2>Add New Product</h2>   
-    </div >
-    <form action="/admin/products" method="POST"> 
-        <input type="text" class="inputProductName" placeholder="Product name" name="productName" required>
-        <div class="modal-chooseUnit">
-          <h3>Choose unit</h3> 
-          <select id="measurementSelect" name="measurementId" required>
-              {{#each measurements}}
-                  <option value="{{this.id}}">{{this.measurement_symbol}}</option>
-              {{/each}}
-          </select>
-        </div>
-
-        {{!-- Tag alt fra chooseunit field og product name field, og indsæt i database --}}
-        <button type="submit" class="button1">
-          <div class="buttonContent">
-            <p>Add New Product</p>
+  <a href="/admin/products" class="modal-backdrop"> </a>
+    <div class="modal-container"> 
+      <div>
+        <h2>Add New Product</h2>   
+      </div >
+      <form action="/admin/products" method="POST"> 
+          <input type="text" class="inputProductName" placeholder="Product name" name="productName" required>
+          <div class="modal-chooseUnit">
+            <h3>Choose unit</h3> 
+            <select id="measurementSelect" name="measurementId" required>
+                {{#each measurements}}
+                    <option value="{{this.id}}">{{this.measurement_symbol}}</option>
+                {{/each}}
+            </select>
           </div>
-        </button>
-      </form>
-  </div>
-  
+
+          {{!-- Tag alt fra chooseunit field og product name field, og indsæt i database --}}
+          <button type="submit" class="button1">
+            <div class="buttonContent">
+              <p>Confirm</p>
+            </div>
+          </button>
+        </form>
+    </div>
+
 </body>
 </html>

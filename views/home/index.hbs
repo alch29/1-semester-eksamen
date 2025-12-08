@@ -1,5 +1,8 @@
 <form method="post" action="/">
     <h1 class="headline">Login</h1>
+    {{#if error}}
+      <div class="error-message" style="color: red; margin-bottom: 10px;">{{error}}</div>
+    {{/if}}
     <input type="text" name="email" placeholder="Email">
     <input type="text" name="password" placeholder="Password">
     <a class="paragraph">Forgot your password?</a>

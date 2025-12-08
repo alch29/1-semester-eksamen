@@ -1,8 +1,8 @@
 <div class="gap">   
     <div>
         <div class="header">
-            <a href="staff/stations"><i></i></a>
-            <p class="headline">{{station.name}}</p>
+            <a href="/staff/stations"><i></i>Go back</a>
+            <h1 class="headline">{{station.name}}</h1>
         </div>
         <div class="header">
             <p class="subHeadline">{{station.address}}</p>
@@ -10,39 +10,27 @@
         </div>
     </div>
 
-    <div>
-        <button class="accordionHeader">
-            <p class="subHeadline">Products</p>
-            <i></i>
-        </button>
-        <div class="accordionContent">
-            {{#each products}}
-                <div class="accordionProduct"> 
-                    <p class="subHeadline">{{this.name}}</p>
-                    <input type="number" placeholder="Antal">
-                    <p class="paragraph">{{this.[measurement.measurement_symbol]}}</p>
-                </div>
-            {{/each}}
-        </div>
-    </div>
-
-    {{!-- <form action="/staff/stations" method="post" enctype="multipart/form-data">
-    
-        <div>
-            <label for="image">Vaskehal</label>
-            <input type="file" id="image-carwash" name="image" accept="image/*" multiple>
-        </div>
-
-        <div>
-            <label for="image">Forplads</label>
-            <input type="file" id="image-forcourt" name="image" accept="image/*" multiple>
-        </div>
-
-    <button type="submit" class="button2">Upload</button>
-
-    </form> --}}
-
     <form action="/staff/stations" method="post" enctype="multipart/form-data" class="gap">
+        
+        <!-- skjulte felter til station_id og date, så de kommer med når bruger klikker på submit knap -->
+        <input type="hidden" name="station_id" value="{{station.id}}">
+        <input type="hidden" name="date" value="{{this.date}}">
+
+        <div>
+            <button type="button" class="accordionHeader">
+                <p class="subHeadline">Products</p>
+                <i></i>
+            </button>
+            <div class="accordionContent">
+                {{#each products}}
+                    <div class="accordionProduct"> 
+                        <p class="subHeadline">{{this.name}}</p>
+                        <input type="number" name="products[{{this.id}}]" placeholder="Antal" min="0">
+                        <p class="paragraph">{{this.[measurement.measurement_symbol]}}</p>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
     
         <div class="imageUploadContainer">
             <span class="subHeadline">Vaskehal</span>
@@ -62,7 +50,7 @@
             <span class="paragraph fileName" id="filename-forcourt">Ingen filer valgt</span>
         </div>
 
-    <button type="submit" class="button2">Upload</button>
+        <button type="submit" class="button2">Upload</button>
 
     </form>
-</div> 
+</div>

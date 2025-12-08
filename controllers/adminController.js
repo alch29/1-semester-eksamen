@@ -194,7 +194,7 @@ exports.getAdminProducts = async (req, res) => {
     const products = await product.findAll();
     res.render('admin/products/admin-products', {
         title: 'Products',
-      products: products.map(prd => prd.toJSON())
+        products: products.map(prd => prd.toJSON())
     });
   } catch (err) {
     console.error('Database error:', err);
@@ -245,13 +245,13 @@ exports.postAdminAddProduct = async (req, res) => {
 exports.getAdminEditProducts = async (req, res) => {
   try {
     const measurements = await measurement.findAll();
-    const products = await product.findAll();
-    const productId = req.params.id;
+    const products = await product.findAll(); // Get from models
+    const productId = req.params.id;  // Get from url
     const prd = await product.findByPk(productId);
 
     // console.log(`Fetched station ${productId}:`, prd.toJSON());
     res.render('admin/products/partials/admin-edit-products', {
-      title: 'Station info',
+      title: 'Edit Products',
       products: products.map(prd => prd.toJSON()),
       product: prd.toJSON(),
       measurements: measurements.map(msm => msm.toJSON())

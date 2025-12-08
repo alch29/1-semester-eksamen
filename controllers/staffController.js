@@ -79,12 +79,16 @@ exports.finishStaffTask = async (req, res) => {
     //bruger crypto pakke fra node.js til at generere et UUID til link_key:
     const linkKey = crypto.randomUUID();
 
+    //Sætter en tiden til at linket udløber (24 timer):
+    const expirationTime = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
     //opretter ny task:
     const newTask = await task.create({
       user_id: userId,
       stations_id: station_id,
       completed_date: date,
-      link_key: linkKey
+      link_key: linkKey,
+      expires_at: expirationTime
     });
 
     console.log(`Task created with ID: ${newTask.id}`);
@@ -124,15 +128,15 @@ exports.finishStaffTask = async (req, res) => {
 
   //________ Til at sende emails med mailersend:________
 
-    // Step 4: Get station info for email
+    //get station info til email:
     const stationInfo = await station.findByPk(station_id);
 
-    // Step 5: Send email with MailerSend
+    //send email med MailerSend:
     const mailerSend = new MailerSend({
-      apiKey: "", //API token fra mailersend
+      apiKey: "indsæt env variabel med access token fra acess_token (2).txt", //API token fra mailersend
     });
 
-    const sentFrom = new Sender("noreply@test-51ndgwvk37dlzqx8.mlsender.net", "Carwash Cleaning");
+    const sentFrom = new Sender("noreply@test-51ndgwvk37dlzqx8.mlsender.net", "Carwash cleaning");
 
     const recipients = [
       new Recipient(stationInfo.email, stationInfo.name)
@@ -141,7 +145,7 @@ exports.finishStaffTask = async (req, res) => {
     const htmlContent = `
       <h2>New task has been completed!</h2>
       <p><strong>Date of completion:</strong> ${date}</p>
-      <p><a href="http://localhost:3000/task/details/${linkKey}"><strong>Click here</strong></a> to view task details.</p>
+      <p><a href="http://116.203.116.30:3000/public/task/details/${linkKey}"><strong>Click here</strong></a> to view task details.</p>
       <br>
       <p>Regards,</p>
       <p>Carwash cleaning team, powered by Group 4</p>
@@ -273,67 +277,3 @@ exports.getStaffHistoryTask = async (req, res) => {
     date: currentDate,
   })
 }
-
-//Til public route hvor stationsejer kan se task details:
-exports.viewTaskByLink = async (req, res) => {
-  try {
-    const linkKey = req.params.linkKey;
-
-    //Find task baseret på UUID:
-    const currentTask = await task.findOne({
-      where: { link_key: linkKey },
-      include: [
-        {
-          model: station,
-          as: 'station',
-          attributes: ['name', 'address']
-        },
-        {
-          model: task_product,
-          as: 'taskProducts',
-          include: [{
-            model: product,
-            as: 'product',
-            attributes: ['name'],
-            include: [{
-              model: measurement,
-              as: 'measurement',
-              attributes: ['measurement_symbol']
-            }]
-          }]
-        },
-        {
-          model: image,
-          as: 'images',
-          attributes: ['id', 'filename', 'mimetype', 'data']
-        }
-      ]
-    });
-
-    if (!currentTask) {
-      return res.status(404).render('error', {
-        message: 'Task not found or link has expired'
-      });
-    }
-
-    const taskData = currentTask.get({ plain: true });
-
-    // Convert images to base64
-    if (taskData.images) {
-      taskData.images = taskData.images.map(img => ({
-        ...img,
-        dataUrl: `data:${img.mimetype};base64,${img.data.toString('base64')}`
-      }));
-    }
-
-    //vis en version af task view (uden navigation til andre sider):
-    res.render('public/task-details', {
-      title: `Task ${currentTask.id}`,
-      task: taskData,
-    });
-
-  } catch (err) {
-    console.error('Error fetching task by link:', err);
-    res.status(500).send('Error loading task');
-  }
-};

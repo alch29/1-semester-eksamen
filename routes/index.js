@@ -4,11 +4,13 @@ const HomeController = require('../controllers/HomeController');
 
 const adminRoutes = require('./adminRoutes');
 const staffRoutes = require('./staffRoutes');
+const publicRoutes = require('./publicRoutes');
 
 const { isNotAuthenticated } = require('../middleware/auth'); 
 
 router.use('/admin', adminRoutes);
 router.use('/staff', staffRoutes);
+router.use('/public', publicRoutes);
 
 router.get('/', isNotAuthenticated, HomeController.index); 
 router.get('/register', isNotAuthenticated, HomeController.getRegister); 

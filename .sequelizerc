@@ -3,3 +3,4 @@ console.log(path.resolve('config', 'config.js'));
 module.exports = {
   'config': path.resolve('config', 'config.js'),
 };
+

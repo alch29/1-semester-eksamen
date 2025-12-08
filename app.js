@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.js());
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // SESSION MIDDLEWARE - SKAL VÆRE FØR ROUTES

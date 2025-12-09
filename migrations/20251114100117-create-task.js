@@ -33,7 +33,7 @@ module.exports = {
       },
       // UUID Link
       link_key: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(40),
         allowNull: false,
         unique: true
       }

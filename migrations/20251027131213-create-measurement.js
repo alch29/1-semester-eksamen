@@ -10,11 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       measurement_name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(20),
         allowNull: false
       },
       measurement_symbol: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(10),
         allowNull: false
       },
       createdAt: {

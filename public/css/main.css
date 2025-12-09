@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   --primary-bg: #FDFDFD;
   --secondary-bg: #EBEBEB;
@@ -88,6 +88,7 @@ body {
   font-size: var(--subheading-size);
   box-sizing: border-box;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .button2{
@@ -103,6 +104,23 @@ body {
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
   box-sizing: border-box;
+  cursor: pointer;
+}
+
+.logOutBtn {
+  border: 0;
+  width: var(--button-width);
+  height: var(--button-height);
+  padding: var(--button-padding);
+  background-color: var(--tetriary-color);
+  border-radius: var(--primary-border-r);
+  box-shadow: var(--primary-box-shadow);
+  color: var(--primary-bg);
+  font-family: var(--subheading);
+  font-weight: var(--subheading-weight);
+  font-size: var(--subheading-size);
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .devareStaff{
@@ -261,6 +279,12 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 10px;
+}
+
+.accordionProduct div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .temp-products-container {
@@ -600,4 +624,32 @@ body {
 .taskDataContainer img {
   width: 100%;
   border-radius: var(--primary-border-r);
+}
+
+.goToBtn {
+  border-radius: var(--primary-border-r);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 1px var(--tetriary-bg);
+  background-color: var(--secondary-bg);
+  padding: 0 14px 0 14px;
+  text-decoration: none;
+  color: var(--primary-text);
+  box-shadow: var(--primary-box-shadow);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.activeInputField {
+  width: 100%;
+  border: solid 1px var(--tetriary-bg);
+  background-color: var(--primary-bg);
+  border-radius: var(--primary-border-r);
+  padding: 8px;
 }

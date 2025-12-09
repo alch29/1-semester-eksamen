@@ -4,6 +4,10 @@ const path = require("path");
 const session = require('express-session'); 
 require('dotenv').config(); 
 
+//Til at rense billeder:
+const cron = require('node-cron');
+const deleteOldImages = require('./node-cron');
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -50,5 +54,20 @@ app.set("views", path.join(__dirname, "views"));
 
 const routes = require("./routes");
 app.use("/", routes);
+
+//_______Cleanup af gamle billeder:_______
+
+// Kør hver dag kl. 02:00
+cron.schedule('0 2 * * *', () => {
+  console.log('Running daily image cleanup...');
+  deleteOldImages();
+});
+
+// cron.schedule('* * * * *', () => {
+//   console.log('Running image cleanup (test mode)...');
+//   deleteOldImages();
+// });
+
+//________________________________
 
 module.exports = app;

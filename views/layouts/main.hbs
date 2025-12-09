@@ -9,13 +9,13 @@
 <body>
   {{!-- vis bruger info og logout hvis logget ind --}}
   {{#if user}}
-    <div class="user-info">
-      Logget ind som: {{user.name}} ({{user.email}})
+    <div class="subHeadline header">
+      Logged in as: {{user.name}} ({{user.email}})
       {{#if user.is_admin}}
-        <span class="badge">Admin</span>
+        <span class="badge paragraph">Admin</span>
       {{/if}}
       <form method="POST" action="/logout" style="display: inline;">
-        <button type="submit">Log ud</button>
+        <button class="logOutBtn" type="submit">Log out</button>
       </form>
     </div>
   {{/if}}

@@ -1,6 +1,7 @@
 // controllers/staffController.js
 const crypto = require('crypto');
 const { station, product, measurement, image, task, task_product, user } = require('../models');
+const { MailerSend, EmailParams, Sender, Recipient } = require("mailersend");
 
 exports.getStaffStations = async (req, res) => {
   try {
@@ -78,12 +79,16 @@ exports.finishStaffTask = async (req, res) => {
     //bruger crypto pakke fra node.js til at generere et UUID til link_key:
     const linkKey = crypto.randomUUID();
 
+    //Sætter en tiden til at linket udløber (24 timer):
+    const expirationTime = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
     //opretter ny task:
     const newTask = await task.create({
       user_id: userId,
       stations_id: station_id,
       completed_date: date,
-      link_key: linkKey
+      link_key: linkKey,
+      expires_at: expirationTime
     });
 
     console.log(`Task created with ID: ${newTask.id}`);
@@ -119,6 +124,45 @@ exports.finishStaffTask = async (req, res) => {
     );
 
     console.log(`Saved ${savedImages.length} images to database`);
+
+
+  //________ Til at sende emails med mailersend:________
+
+    //get station info til email:
+    const stationInfo = await station.findByPk(station_id);
+
+    //send email med MailerSend:
+    const mailerSend = new MailerSend({
+      apiKey: process.env.EMAIL_API_TOKEN, //API token fra mailersend
+    });
+
+    const sentFrom = new Sender("noreply@test-51ndgwvk37dlzqx8.mlsender.net", "Carwash cleaning");
+
+    const recipients = [
+      new Recipient(stationInfo.email, stationInfo.name)
+    ];
+
+    const htmlContent = `
+      <h2>New task has been completed!</h2>
+      <p><strong>Date of completion:</strong> ${date}</p>
+      <p><a href="http://116.203.116.30:3000/public/task/details/${linkKey}"><strong>Click here</strong></a> to view task details.</p>
+      <br>
+      <p>Regards,</p>
+      <p>Carwash cleaning team, powered by Group 4</p>
+      `;
+
+    const emailParams = new EmailParams()
+      .setFrom(sentFrom)
+      .setTo(recipients)
+      .setReplyTo(sentFrom)
+      .setSubject(`New task completed at ${stationInfo.name}`)
+      .setHtml(htmlContent)
+      .setText(`New task completed at ${stationInfo.name}.`);
+
+    await mailerSend.email.send(emailParams);
+    console.log("Email sent successfully!");
+
+    //________________
 
     //omdirigerer staff til staff-stations siden:
     res.redirect('/staff/stations');
@@ -157,12 +201,12 @@ exports.getStaffHistory = async (req, res) => {
       
       return {
         ...task,
-        formattedDate: `${month} ${day}, ${year}`
+        formattedDate: `${day} ${month}, ${year}`
       };
     });
 
     res.render('staff/staff-history', {
-      title: 'View history',
+      title: 'History',
       tasks: formattedDate
   });
 
@@ -225,7 +269,7 @@ exports.getStaffHistoryTask = async (req, res) => {
   const day = date.getDate();
   const year = date.getFullYear();
 
-  const currentDate = `${month} ${day}, ${year}`;
+  const currentDate = `${day} ${month}, ${year}`;
     
   res.render('staff/staff-history-task', {
     title: `Task ${currentTask.id}`,

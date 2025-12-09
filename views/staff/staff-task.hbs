@@ -1,13 +1,18 @@
+<div class="headline headline-with-chevron">
+    <a href="/staff/stations">
+        <span class="double-chevron">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/></svg>
+        </span>
+    </a>
+    <span class="title">{{station.name}}</span>
+</div>
+
 <div class="gap">   
     <div>
-        <div class="header">
-            <a href="/staff/stations"><i></i>Go back</a>
-            <h1 class="headline">{{station.name}}</h1>
-        </div>
-        <div class="header">
-            <p class="subHeadline">{{station.address}}</p>
-            <p class="subHeadline">{{this.date}}</p>
-        </div>
+        <p class="subHeadline">{{station.address}}</p>
+        <p class="subHeadline">{{this.date}}</p>
     </div>
 
     <form action="/staff/stations" method="post" enctype="multipart/form-data" class="gap">
@@ -15,22 +20,6 @@
         <!-- skjulte felter til station_id og date, så de kommer med når bruger klikker på submit knap -->
         <input type="hidden" name="station_id" value="{{station.id}}">
         <input type="hidden" name="date" value="{{this.date}}">
-
-        <div>
-            <button type="button" class="accordionHeader">
-                <p class="subHeadline">Products</p>
-                <i></i>
-            </button>
-            <div class="accordionContent">
-                {{#each products}}
-                    <div class="accordionProduct"> 
-                        <p class="subHeadline">{{this.name}}</p>
-                        <input type="number" name="products[{{this.id}}]" placeholder="Antal" min="0">
-                        <p class="paragraph">{{this.[measurement.measurement_symbol]}}</p>
-                    </div>
-                {{/each}}
-            </div>
-        </div>
     
         <div class="imageUploadContainer">
             <span class="subHeadline">Vaskehal</span>
@@ -48,6 +37,24 @@
             </label>
             <input type="file" id="image-forcourt" name="image" accept="image/*" multiple class="imageInput">
             <span class="paragraph fileName" id="filename-forcourt">Ingen filer valgt</span>
+        </div>
+
+        <div>
+            <button type="button" class="accordionHeader">
+                <p class="subHeadline">Products</p>
+                <i></i>
+            </button>
+            <div class="accordionContent">
+                {{#each products}}
+                    <div class="accordionProduct"> 
+                        <p class="subHeadline">{{this.name}}</p>
+                        <div>
+                            <input type="number" name="products[{{this.id}}]" placeholder="Antal" min="0">
+                            <p class="paragraph">{{this.[measurement.measurement_symbol]}}</p>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
         </div>
 
         <button type="submit" class="button2">Upload</button>

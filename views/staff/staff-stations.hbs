@@ -1,20 +1,20 @@
-<div class="header">
-    <p class="headline">Your stations</p>
+<div class="title">
+    <p class="headline">{{title}}</p>
     <a href="history" class="button1"><i></i>View history</a>
 </div>
 <div>
     {{#each stations}}
-    <a href="/staff/task/{{this.id}}">
-        <div>
-            <img>
-            <div>
-                <div>
-                    <p>{{this.name}}</p>
-                    <p>{{this.address}}</p>
-                </div>
-                <i></i>
+    <div class="stationCard box">
+      <a href="/staff/task/{{this.id}}">
+        <img src="/img/gas-station-placeholder.avif" class="stationPlaceholderImg">
+        <div class="stationCardOverlay">
+            <div class="lowLineHeight centerText">
+              <span class="subHeadline">{{this.name}}</span> <br>               
+              <span class="paragraph">{{this.address}}</span>
             </div>
-        </div>
-    </a>
+            <div class="arrow">→</div>
+        </div>  
+      </a>
+    </div>
     {{/each}}
 </div>

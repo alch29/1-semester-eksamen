@@ -133,7 +133,7 @@ exports.finishStaffTask = async (req, res) => {
 
     //send email med MailerSend:
     const mailerSend = new MailerSend({
-      apiKey: "indsæt env variabel med access token fra acess_token (2).txt", //API token fra mailersend
+      apiKey: process.env.EMAIL_API_TOKEN, //API token fra mailersend
     });
 
     const sentFrom = new Sender("noreply@test-51ndgwvk37dlzqx8.mlsender.net", "Carwash cleaning");

@@ -57,6 +57,7 @@ exports.viewTaskByLink = async (req, res) => {
     
       const currentDate = `${day} ${month}, ${year}`;
 
+      //Gør så at siden ikke bliver vist efter 24 timer:
       if (taskData.expires_at < new Date()) {
         return res.status(410).render('error', {
           message: 'Link has expired'

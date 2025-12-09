@@ -1,13 +1,26 @@
 <div class="gap">
   <form method="post" action="/" class="gap">
-      <h1 class="headline">Login</h1>
-      {{#if error}}
-        <div class="error-message" style="color: red; margin-bottom: 10px;">{{error}}</div>
-      {{/if}}
-      <input class="activeInputField" type="text" name="email" placeholder="Email">
-      <input class="activeInputField" type="text" name="password" placeholder="Password">
-      <a class="paragraph">Forgot your password?</a>
-      <button type="submit" class="button2">Login</button>
+    <h1 class="headline">Login</h1>
+    {{#if error}}
+      <div
+        class="error-message"
+        style="color: red; margin-bottom: 10px;"
+      >{{error}}</div>
+    {{/if}}
+    <input
+      class="activeInputField"
+      type="text"
+      name="email"
+      placeholder="Email"
+    />
+    <input
+      class="activeInputField"
+      type="password"
+      name="password"
+      placeholder="Password"
+    />
+    <a class="paragraph">Forgot your password?</a>
+    <button type="submit" class="button2">Login</button>
   </form>
   <div>
     <p class="subHeadline">Are you not registered yet?</p>

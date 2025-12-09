@@ -15,7 +15,7 @@ module.exports = {
     {
       name: 'Gwen Stacy',
       email:'gwen@stacy.com',
-      password: 'password456',
+      password: 'password456', // hashed version of 'password456'
       role_id: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -23,7 +23,7 @@ module.exports = {
     {
       name: 'Norman Osborn',
       email:'norman@osborn.com',
-      password: 'password789',
+      password: 'password789', // hashed version of 'password789'
       role_id: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -33,12 +33,12 @@ module.exports = {
 
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
-};
+async down (queryInterface, Sequelize) {
+  await queryInterface.bulkDelete('users', {
+    email: {
+      [Sequelize.Op.in]: ['spidey@man.com', 'gwen@stacy.com', 'norman@osborn.com']
+    }
+  }, {
+
+  });
+}}

@@ -6,7 +6,7 @@ exports.getAdminStaff = async (req, res) => {
   try {
     const staff = await user.findAll();
     res.render('admin/staff/admin-staff', {
-        title: 'staff',
+        title: 'Staff',
         staff: staff.map(stf => stf.toJSON())
     });
   } catch (err) {
@@ -78,7 +78,7 @@ exports.getAdminEditProducts = async (req, res) => {
 
     console.log(`Fetched station ${productId}:`, prd.toJSON());
     res.render('admin/products/partials/admin-edit-products', {
-      title: 'Station info',
+      title: 'Edit Products',
       products: products.map(prd => prd.toJSON()),
       product: prd.toJSON(),
       measurements: measurements.map(msm => msm.toJSON())

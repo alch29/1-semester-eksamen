@@ -47,8 +47,8 @@
     <div>
         <h2>Edit Product</h2>   
     </div>
-    <form action="/admin/products" method="POST"> 
-        <input type="text" class="inputProductName" placeholder="Product name" name="productName" required>
+    <form action="/admin/products/{{product.id}}" method="POST"> 
+        <input type="text" class="inputProductName" placeholder="Product name" name="name" required>
         <div class="modal-chooseUnit">
             <h3>Choose unit</h3> 
             <select id="measurementSelect" name="measurementId" required>

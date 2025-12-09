@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     stations_id: DataTypes.INTEGER,
     // UUID Link
-    link_key: DataTypes.STRING,
+    link_key: DataTypes.STRING(40),
     expires_at: DataTypes.DATE
   }, {
     sequelize,

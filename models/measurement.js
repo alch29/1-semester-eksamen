@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   measurement.init({
-    measurement_name: DataTypes.STRING,
-    measurement_symbol: DataTypes.STRING
+    measurement_name: DataTypes.STRING(20),
+    measurement_symbol: DataTypes.STRING(10)
   }, {
     sequelize,
     modelName: 'measurement',

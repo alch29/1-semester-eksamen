@@ -10,8 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING(50),
+        allowNull: false,
+        unique: true
       },
       is_admin: {
         type: Sequelize.BOOLEAN,

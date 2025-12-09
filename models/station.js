@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   station.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    address: DataTypes.STRING,
-    phone: DataTypes.STRING,
+    name: DataTypes.STRING(100),
+    email: DataTypes.STRING(255),
+    address: DataTypes.STRING(100),
+    phone: DataTypes.STRING(20),
     user_id: DataTypes.INTEGER,
     cleaning_of_forecourt: DataTypes.BOOLEAN
   }, {

@@ -3,7 +3,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.addColumn('tasks', 'link_key', {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(40),
       allowNull: false,
       unique: true
     });

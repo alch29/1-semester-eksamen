@@ -12,9 +12,10 @@ router.get('/staff', adminController.getAdminStaff);
 
 router.get('/products', adminController.getAdminProducts);
 router.get('/products/partials/admin-add-products', adminController.getAdminAddProducts);
+router.post('/products/:id', adminController.postAdminUpdateProduct);
 router.post('/products', adminController.postAdminAddProduct);
 router.get('/products/partials/admin-edit-products/:id', adminController.getAdminEditProducts);
-router.post('/products/:id', adminController.postAdminUpdateProduct);
+
 
 router.get('/', adminController.getAdmin);
 router.get('/stations', adminController.getStations);

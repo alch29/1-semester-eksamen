@@ -1,7 +1,7 @@
 const app = require("./app"); 
 const db = require('./models');
 
-const HOST = process.env.HOST || '0.0.0.0';
+const HOST = process.env.DB_HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 
 // Start server

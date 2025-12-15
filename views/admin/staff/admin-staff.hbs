@@ -1,38 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <headline class="headerText"></headline>
-</head>
-<body>
-  {{> nav title=title backHref="/admin"}}
-  <div>
-    <a class="noUnderline" href="/admin/staff/admin-add-staff">
-      <div class="button1Container">
-        <div class="button1">
-          <div class="buttonContent">
-            <div> + </div>
-            <div>Add New Staff</div>
-        </div>
+{{> nav title=title backHref="/admin"}}
+<div>
+  <a class="noUnderline" href="/admin/staff/admin-add-staff">
+    <div class="button1Container">
+      <div class="button1">
+        <div class="buttonContent">
+          <div> + </div>
+          <div>Add New Staff</div>
       </div>
-    </a>
     </div>
-      <div>
-        {{#each staff}}
-          <div class="temp-products-container">
-            <div class="temp-products">
-              {{this.name}}
-              <a href="/admin/staff/{{this.id}}/edit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>
-             </a>
-            </div>
-          </div>
-        {{/each}}
-      </div>
+  </a>
   </div>
-</body>
-</html>
+    <div>
+      {{#each staff}}
+        <div class="temp-products-container">
+          <div class="temp-products">
+            {{this.name}}
+            <a href="/admin/staff/{{this.id}}/edit">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+</div>

@@ -5,7 +5,10 @@
 </div>
 <div>
     {{#each tasks}}
-    <div class="stationCard box">
+    <div class="stationCard box"
+    data-name="{{this.[station.name]}}"
+    data-address="{{this.[station.address]}}"
+    >
       <a href="/staff/history/task/{{this.id}}">
         <img src="/img/gas-station-placeholder.avif" class="stationPlaceholderImg">
         <div class="stationCardOverlay">

@@ -8,14 +8,15 @@
 <body>
   {{> nav title=title backHref="/admin"}}
   <div>
-    <div class="button1Container">
-      <div class="button1">
-        <div class="buttonContent">
-          <div> + </div>
-          <div>Add New Staff</div>
+    <a class="noUnderline" href="/admin/staff/admin-add-staff">
+      <div class="button1Container">
+        <div class="button1">
+          <div class="buttonContent">
+            <div> + </div>
+            <div>Add New Staff</div>
+        </div>
       </div>
-    </div>
-
+    </a>
     </div>
       <div>
         {{#each staff}}

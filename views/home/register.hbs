@@ -1,14 +1,14 @@
-<form method="post" action="/register">   
+<form method="post" action="/register" class="gap">   
     <h1 class="headline">Register new user</h1>
 
-    <input type="text" name="name" placeholder="Full name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="text" name="password" placeholder="Password" required>    
+    <input class="activeInputField" type="text" name="name" placeholder="Full name" required>
+    <input class="activeInputField" type="email" name="email" placeholder="Email" required>
+    <input class="activeInputField" type="password" name="password" placeholder="Password" required>    
     {{#if error}}
       <div class="error-message" style="color: red; margin-bottom: 10px;">{{error}}</div>
     {{/if}}
     <button type="submit" class="button2">Register</button>
 
-    <a href="/" class="button1"> Annuller </a>
+    <a href="/" class="button1">Annuller</a>
 
 </form>

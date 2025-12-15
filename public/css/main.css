@@ -227,6 +227,7 @@ body {
   height: 20px;
 
 }
+
 .arrow{
   margin-left: auto;
   margin-right: 8px;
@@ -234,6 +235,12 @@ body {
   color: var(--primary-text);
   padding-right: 12px;
 }
+
+.formattedTimeRight{
+  margin-left: auto;
+  margin-right: 8px;
+}
+
 .lowLineHeight{
   line-height: 1;
 }
@@ -258,7 +265,6 @@ body {
   font-family: var(--subheading);
   font-weight: var(--subheading-weight);
   font-size: var(--subheading-size);
-  
   box-sizing: border-box;
   cursor: pointer;
   padding: 0 10px 0 10px;
@@ -431,6 +437,13 @@ body {
   color: var(--primary-text);
 }
 
+.headline-with-chevron .logout-form {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+
 .title {
   text-align: center;
   flex: 1;
@@ -467,7 +480,6 @@ body {
   border: solid 1px #BFBFBF;
   padding: 14px;
   border-radius: var(--primary-border-r);
-
 }
 
 .customImageUpload {
@@ -653,3 +665,24 @@ body {
   border-radius: var(--primary-border-r);
   padding: 8px;
 }
+
+.logout-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn svg {
+  width: 20px;
+  height: 20px;
+  color: #dc2626;
+  fill: currentColor;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1)
+}
+
+
+

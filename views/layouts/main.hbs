@@ -8,17 +8,13 @@
 </head>
 <body>
   {{!-- vis bruger info og logout hvis logget ind --}}
-  {{#if user}}
+  {{!-- {{#if user}}
     <div class="subHeadline header">
-      Logged in as: {{user.name}} ({{user.email}})
-      {{#if user.is_admin}}
-        <span class="badge paragraph">Admin</span>
-      {{/if}}
       <form method="POST" action="/logout" style="display: inline;">
         <button class="logOutBtn" type="submit">Log out</button>
       </form>
     </div>
-  {{/if}}
+  {{/if}} --}}
 
   {{{body}}}
 </body>

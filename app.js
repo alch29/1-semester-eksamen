@@ -1,8 +1,8 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const path = require("path");
-const session = require('express-session'); 
-require('dotenv').config(); 
+const session = require('express-session');
+require('dotenv').config();
 
 //Til at rense billeder:
 const cron = require('node-cron');
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 });
 
 // View engine setup
-app.engine(".hbs", exphbs.engine({ 
+app.engine(".hbs", exphbs.engine({
   extname: ".hbs",
   helpers: {
     eq: (a, b) => a === b
@@ -51,6 +51,7 @@ app.engine(".hbs", exphbs.engine({
 }));
 app.set("view engine", ".hbs");
 app.set("views", path.join(__dirname, "views"));
+// hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 const routes = require("./routes");
 app.use("/", routes);

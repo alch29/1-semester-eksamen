@@ -15,7 +15,7 @@ exports.index = (req, res) => {
 exports.getRegister = (req, res) => {
   res.render("home/register", {
     title: 'Register',
-    error: req.session.error,
+    error: req.session.error || null,
   });
   delete req.session.error;
 };

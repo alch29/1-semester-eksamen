@@ -1,13 +1,8 @@
 const app = require("./app"); 
 const db = require('./models');
-
-const HOST = process.env.DB_HOST || '0.0.0.0';
 const PORT = process.env.PORT || 3000;
 
-// Start server
-app.listen(PORT, HOST, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
+// Start server - listen on all interfaces
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
 });
-
-
-

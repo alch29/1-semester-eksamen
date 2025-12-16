@@ -6,7 +6,7 @@ require('dotenv').config();
 
 //Til at rense billeder:
 const cron = require('node-cron');
-const deleteOldImages = require('./node-cron');
+const deleteOldImages = require('./cron-job');
 
 const app = express();
 

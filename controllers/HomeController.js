@@ -28,19 +28,31 @@ exports.postRegister = async (req, res) => {
 
     //  Validering
     if (!email || !password || !name) {
-      req.session.error = 'Alle felter skal udfyldes';
+      req.session.error = 'All fields are required';
       return res.redirect('/register'); 
     }
-    
-    if (password.length < 6) {
-      req.session.error = 'Password skal være mindst 6 tegn';
+
+    // HALLO ER DU DUM ELLLER HVAD
+  function isValidName(name) {
+    if (!name || typeof name !== 'string') {
+      return false;
+    }
+  }
+    if (!isValidName(name)) {
+      req.session.error = 'Name must not contain special characters or numbers';
+      return res.redirect('/register');
+    }
+  
+
+    if (password.length < 8) {
+      req.session.error = 'Password has to be minimum 8 characters long';
       return res.redirect('/register');
     }
     
     // Tjek om email allerede eksisterer
     const existingUser = await user.findOne({ where: { email } });
     if (existingUser) {
-      req.session.error = 'Email eksisterer allerede';
+      req.session.error = 'Email already in use';
       return res.redirect('/register');
     }
 

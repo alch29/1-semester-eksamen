@@ -33,15 +33,15 @@ exports.postRegister = async (req, res) => {
     }
 
     // HALLO ER DU DUM ELLLER HVAD
-  function isValidName(name) {
-    if (!name || typeof name !== 'string') {
-      return false;
-    }
-  }
-    if (!isValidName(name)) {
-      req.session.error = 'Name must not contain special characters or numbers';
-      return res.redirect('/register');
-    }
+  // function isValidName(name) {
+  //   if (!name || typeof name !== 'string') {
+  //     return false;
+  //   }
+  // }
+  //   if (!isValidName(name)) {
+  //     req.session.error = 'Name must not contain special characters or numbers';
+  //     return res.redirect('/register');
+  //   }
   
 
     if (password.length < 8) {

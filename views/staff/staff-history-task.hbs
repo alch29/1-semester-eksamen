@@ -1,4 +1,4 @@
-{{> nav title=task.station.name backHref="/staff/history"}}
+{{> nav title=task.station.name backHref="/staff/history" }}
 <div class="gap">
     <div>
         <p class="subHeadline">{{task.station.address}}</p>
@@ -8,7 +8,7 @@
     <div class="taskDataContainer">
         <h2 class="subHeadline">Images uploaded</h2>
         {{#each task.images}}
-            <img src="{{this.dataUrl}}" alt="{{this.filename}}">
+            <img src="{{this.dataUrl}}" alt="{{this.file_path}}">
         {{/each}}
     </div>
 

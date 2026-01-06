@@ -7,7 +7,7 @@ const fs = require('fs');
 
 //Til at rense billeder:
 const cron = require('node-cron');
-const cleanupOldImages = require('./cron-job');
+// const deleteOldImages = require('./cron-job');
 
 const app = express();
 
@@ -59,48 +59,41 @@ app.use("/", routes);
 
 //_______Cleanup af gamle billeder:_______
 
-// const imageDir = path.join(__dirname, 'public/uploads'); // mappe med billeder
-// const days = 90;
-// const maxAge = days * 24 * 60 * 60 * 1000;
+const imageDir = path.join(__dirname, 'public/uploads'); // mappe med billeder
+const days = 30;
+const maxAge = days * 24 * 60 * 60 * 1000;
 // const maxAge = 5 * 60 * 1000;
 
 // Kør hver dag kl. 02:00
-cron.schedule('* * * * *', () => {
+cron.schedule('0 2 * * *', () => {
   console.log('Running daily image cleanup...');
-  cleanupOldImages();
-  
-  // const now = Date.now();
+  const now = Date.now();
 
-  // fs.readdir(imageDir, (err, files) => {
-  //   if (err) {
-  //     console.error('Error when reading folder:', err);
-  //     return;
-  //   }
+  fs.readdir(imageDir, (err, files) => {
+    if (err) {
+      console.error('Error when reading folder:', err);
+      return;
+    }
 
-  //   files.forEach(file => {
-  //     const filePath = path.join(imageDir, file);
+    files.forEach(file => {
+      const filePath = path.join(imageDir, file);
 
-  //     fs.stat(filePath, (err, stats) => {
-  //       if (err) return;
+      fs.stat(filePath, (err, stats) => {
+        if (err) return;
 
-  //       const age = now - stats.mtimeMs;
+        const age = now - stats.mtimeMs;
 
-  //       if (age > maxAge) {
-  //         fs.unlink(filePath, err => {
-  //           if (!err) {
-  //             console.log('Deleted:', file);
-  //           }
-  //         });
-  //       }
-  //     });
-  //   });
-  // });
+        if (age > maxAge) {
+          fs.unlink(filePath, err => {
+            if (!err) {
+              console.log('Deleted:', file);
+            }
+          });
+        }
+      });
+    });
+  });
 });
-
-// cron.schedule('* * * * *', () => {
-//   console.log('Running image cleanup (test mode)...');
-//   deleteOldImages();
-// });
 
 //________________________________
 

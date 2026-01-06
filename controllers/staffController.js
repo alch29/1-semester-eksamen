@@ -113,7 +113,7 @@ exports.finishStaffTask = async (req, res) => {
     const savedImages = await Promise.all(
       req.files.map(file => 
         image.create({
-          file_path: `public/uploads/${file.filename}`,
+          file_path: `/uploads/${file.filename}`,
           user_id: userId,
           task_id: newTask.id
         })
@@ -241,7 +241,7 @@ exports.getStaffHistoryTask = async (req, res) => {
       {
         model: image,
         as: 'images',
-        attributes: ['id', 'filename', 'mimetype', 'data']
+        attributes: ['id', 'file_path']
       }
     ]
   });
@@ -253,10 +253,9 @@ exports.getStaffHistoryTask = async (req, res) => {
   if (taskData.images) {
     taskData.images = taskData.images.map(img => ({
       ...img,
-      dataUrl: `data:${img.mimetype};base64,${img.data.toString('base64')}`
+      dataUrl: img.file_path
     }));
   }
-  //base64 konverterer binær data til string, så dataen kan hentes og bruges over text-baseret systemer.
 
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 

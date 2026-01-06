@@ -61,4 +61,4 @@ async function cleanupOldImages() {
     await deleteOldImagesFromDatabase();
   }
 
-module.exports = { cleanupOldImages };
+module.exports = cleanupOldImages();

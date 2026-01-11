@@ -1,12 +1,15 @@
 <div class="gap">
   <form method="post" action="/" class="gap">
     <h1 class="headline">Login</h1>
-    {{#if error}}
-      <div
-        class="error-message"
-        style="color: red; margin-bottom: 10px;"
-      >{{error}}</div>
+    
+    {{#if success}}
+      <div class="success-message">{{success}}</div>
     {{/if}}
+    
+    {{#if error}}
+      <div class="error-message">{{error}}</div>
+    {{/if}}
+    
     <input
       class="activeInputField"
       type="text"
@@ -19,7 +22,8 @@
       name="password"
       placeholder="Password"
     />
-    <a class="paragraph">Forgot your password?</a>
+    <a href="/forgot-password" class="paragraph">Forgot your password?</a>
+    
     <button type="submit" class="button2">Login</button>
   </form>
   <div class="gap2">

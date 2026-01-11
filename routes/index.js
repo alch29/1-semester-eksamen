@@ -12,8 +12,14 @@ router.use('/admin', adminRoutes);
 router.use('/staff', staffRoutes);
 router.use('/public', publicRoutes);
 
+router.get('/api/questions', HomeController.getQuestions);
+
 router.get('/', isNotAuthenticated, HomeController.index); 
 router.get('/register', isNotAuthenticated, HomeController.getRegister); 
+
+router.get('/forgot-password', isNotAuthenticated, HomeController.getForgotPassword);
+router.post('/forgot-password/verify-user', HomeController.postVerifyUser);
+router.post('/forgot-password/reset', HomeController.postResetPassword);
 
 router.post('/', HomeController.postLogin);
 router.post('/register', HomeController.postRegister);

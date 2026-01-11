@@ -1,0 +1,25 @@
+<form method="post" action="/forgot-password/reset" class="gap">
+    <h1 class="headline">Reset Your Password</h1>
+    
+    {{#if error}}
+      <div class="error-message">{{error}}</div>
+    {{/if}}
+    
+    <input type="hidden" name="email" value="{{email}}">
+    <input type="hidden" name="question_id" value="{{question.id}}">
+    
+    <div>
+      <label>Security Question:</label>
+      <p>{{question.question_text}}</p>
+      <input class="activeInputField" type="text" name="answer" placeholder="Your answer" required>
+    </div>
+    
+    <div>
+      <label>New Password:</label>
+      <input class="activeInputField" type="password" name="newPassword" placeholder="New Password (min 8 characters)" required>
+      <input class="activeInputField" type="password" name="confirmPassword" placeholder="Confirm Password" required>
+    </div>
+    
+    <button type="submit" class="button2">Reset Password</button>
+    <a href="/forgot-password" class="button1">Cancel</a>
+</form>

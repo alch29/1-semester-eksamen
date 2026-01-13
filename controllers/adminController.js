@@ -3,6 +3,7 @@ const { raw } = require('mysql2');
 const { Op } = require('sequelize');
 
 // GET /admin/staff
+//viser alle medarbejdere
 exports.getAdminStaff = async (req, res) => {
   try {
     const staff = await user.findAll({ raw: true });
@@ -15,6 +16,7 @@ exports.getAdminStaff = async (req, res) => {
     res.status(500).send('Database error');
   }
 };
+//viser formular til at tilføje/redigere medarbejder
 exports.getAdminStaffAdd = async (req, res) => {
   const { id } = req.params;
 
@@ -54,7 +56,9 @@ exports.getAdminStaffAdd = async (req, res) => {
     res.status(500).send("Database error");
   }
 };
-
+//Gemmer ny/opdateret medarbejder
+//Hvis der er et id opdateres eksisterende bruger, hvis ikke oprettes en ny bruger med foruddefinerede password.
+//Hvis brugeren klikker "addToStations", sendes de videre til at vælge stationer
 exports.postAdminStaffAdd = async (req, res) => {
   const { id, firstName, lastName, email, action } = req.body;
 
@@ -98,7 +102,7 @@ exports.postAdminStaffAdd = async (req, res) => {
     res.status(500).send("Database error");
   }
 };
-
+//Finder medarbejderen med det givne ID og sletter dem fra databasen.
 exports.postAdminStaffDelete = async (req, res) => {
   const { id } = req.params;
 
@@ -118,7 +122,10 @@ exports.postAdminStaffDelete = async (req, res) => {
     return res.status(500).send("Database error");
   }
 };
-
+//Vis stationer for en medarbejder
+//Finder alle stationer der enten ikke har en bruger ELLER tilhører denne bruger
+//Markerer hvilke stationer der allerede er tilknyttet medarbejderen
+//Viser liste over stationer der kan vælges
 exports.getAdminStaffStations = async (req, res) => {
   const { id } = req.params;
 
@@ -154,7 +161,10 @@ exports.getAdminStaffStations = async (req, res) => {
   }
 };
 
-
+//Gem stations-valg for medarbejder
+//Tager listen af valgte stationer fra formularen
+//Fjerner stationer der var tilknyttet før, men ikke er valgt nu
+//Tilføjer nye stationer der er blevet valgt
 exports.postAdminStaffStations = async (req, res) => {
   const { id } = req.params;
   let { stations: selectedStations } = req.body;
@@ -333,7 +343,7 @@ exports.getStationInfo = async (req, res) => {
     res.status(500).send('Database error');
   }
 };
-
+//Slår cleaning_of_forecourt til eller fra
 exports.updateCleaningOfForecourt = async (req, res) => {
   try {
     const { stationId } = req.params;
@@ -354,9 +364,10 @@ exports.updateCleaningOfForecourt = async (req, res) => {
 };
 
 // GET /admin/stations/manage — manage station staff
+//Henter alle brugere der er staff og viser dem, så man kan vælge hvem der skal tilknyttes stationen.
 exports.getStationManage = async (req, res) => {
   try {
-    const stationId = parseInt(req.query.stationId, 10);
+    const stationId = parseInt(req.query.stationId, 10); // Tag stationId fra URL'en og lav det om til et tal
     const currentUserId = parseInt(req.query.userId, 10) || null;
 
     const users = await user.findAll({

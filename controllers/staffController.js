@@ -250,13 +250,6 @@ exports.getStaffHistoryTask = async (req, res) => {
   const taskData = currentTask.get({ plain: true });
   //konvertere data til plain object, som skulle gøre det nemmere for handlebars at arbejde med relateret/nested data. i modsætning til når man bruger raw.
 
-  if (taskData.images) {
-    taskData.images = taskData.images.map(img => ({
-      ...img,
-      dataUrl: img.file_path
-    }));
-  }
-
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   //formater datoen for hver task
